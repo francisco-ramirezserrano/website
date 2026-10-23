@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Francisco Ramirez Serrano">
+<meta property="og:description" content="Robotics engineer at MIT CSAIL: microrobots, humanoids and responsible AI.">
+<meta property="og:image" content="img/francisco.jpg">
+<link rel="icon" href="img/francisco.jpg">
+<title>Francisco Ramirez Serrano</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Francisco Ramirez Serrano: robotics engineer at MIT CSAIL. Microrobots, humanoids, responsible AI, and notes on the things I care about.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one left-aligned reading column (~44rem) with a mono date rail on entry lists; safety-yellow used only as a marker highlight. */
+:root {
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --ink: #15202b;
+  --muted: #56636f;
+  --rule: #d9dee3;
+  --link: #0b5c7a;
+  --marker: #ffd23f;
+  --marker-ink: #15202b;
+  --hl: #ffd23f;
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --col: 44rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1820; --surface: #16222c; --ink: #e8edf1; --muted: #9aa8b4;
+    --rule: #2a3a47; --link: #7cc7e3; --marker: #ffd23f; --marker-ink: #0f1820; --hl: rgba(255, 210, 63, 0.32);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1820; --surface: #16222c; --ink: #e8edf1; --muted: #9aa8b4;
+  --rule: #2a3a47; --link: #7cc7e3; --marker: #ffd23f; --marker-ink: #0f1820; --hl: rgba(255, 210, 63, 0.32);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: calc(var(--col) + 2 * 24px);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 2px; }
+
+/* Header */
+.top {
+  display: flex; flex-wrap: wrap; gap: 8px 24px;
+  align-items: baseline; justify-content: space-between;
+  padding-block: 28px 0;
+}
+.wordmark { font-family: var(--font-display); font-size: 1.125rem; color: var(--ink); text-decoration: none; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.top nav a {
+  font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em;
+  color: var(--muted); text-decoration: none;
+}
+.top nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero {
+  display: grid; grid-template-columns: 9.5rem 1fr; gap: 28px;
+  align-items: center; padding-block: 56px 40px;
+}
+.hero img {
+  width: 100%; max-width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
+  border-radius: 50%; background: var(--surface);
+}
+.hero h1 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 2.9rem); line-height: 1.1;
+  margin: 0 0 14px; text-wrap: balance;
+}
+.hero p { margin: 0; max-width: 34rem; color: var(--ink); font-size: 1.125rem; }
+mark {
+  background: linear-gradient(transparent 58%, var(--hl) 58%);
+  color: inherit; padding: 0 2px;
+}
+.facts {
+  display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; padding: 0; list-style: none;
+  font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted);
+}
+@media (max-width: 560px) {
+  .hero { grid-template-columns: 1fr; gap: 20px; padding-block: 36px 28px; }
+  .hero img { width: 7.5rem; }
+}
+
+/* Sections */
+section { padding-block: 40px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
+.label {
+  font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted); margin: 0 0 18px;
+}
+h2 {
+  font-family: var(--font-display); font-weight: 400; font-size: 1.75rem; line-height: 1.2;
+  margin: 0 0 20px; text-wrap: balance;
+}
+.prose p { margin: 0 0 1em; max-width: 65ch; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* Entry lists: date rail + body */
+.entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
+.entry { display: grid; grid-template-columns: 6.5rem 1fr; gap: 4px 20px; }
+.when {
+  font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted);
+  padding-top: 4px; font-variant-numeric: tabular-nums;
+}
+.entry-body { min-width: 0; }
+.entry h3 { font-size: 1.0625rem; font-weight: 700; margin: 0 0 4px; line-height: 1.35; }
+.entry p { margin: 0; color: var(--muted); max-width: 62ch; }
+.entry .where { color: var(--ink); }
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; font-size: 0.9375rem; }
+.links a::after { content: " \2197"; font-size: 0.8em; }
+@media (max-width: 560px) {
+  .entry { grid-template-columns: 1fr; }
+  .when { padding-top: 0; }
+}
+
+.subhead { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); margin: 36px 0 16px; letter-spacing: 0.04em; }
+.compact { gap: 12px; }
+.compact .entry h3 { font-weight: 400; margin: 0; }
+
+/* Writing */
+.posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.post {
+  display: grid; gap: 6px; padding: 20px 22px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+}
+.post h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+.post p { margin: 0; color: var(--muted); max-width: 60ch; }
+.status {
+  justify-self: start; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--marker-ink); background: var(--marker);
+  padding: 2px 8px; border-radius: 3px;
+}
+
+/* Contact */
+.contact-row { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 18px; }
+.email {
+  font-family: var(--font-mono); font-size: 0.9375rem; padding: 8px 12px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+  user-select: all; overflow-wrap: anywhere; min-width: 0;
+}
+button.copy {
+  font: inherit; font-size: 0.875rem; cursor: pointer;
+  padding: 8px 14px; border-radius: 4px; border: 1px solid var(--ink);
+  background: var(--ink); color: var(--bg);
+}
+button.copy:hover { opacity: 0.88; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 16px; }
+
+footer {
+  border-top: 1px solid var(--rule); padding-block: 28px 40px;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="wordmark" href="#top" id="top">Francisco Ramirez Serrano</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#talks">Talks &amp; teaching</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <img src="img/francisco.jpg" alt="Francisco smiling, holding a small folded robot between his fingers" width="480" height="480">
+    <div>
+      <h1>I build robots, test them, and think about how they should share our world.</h1>
+      <p>Robotics engineer and PhD student at MIT CSAIL. I've worked on robots from <mark>insect-scale jumpers</mark> to <mark>humanoids</mark>, and on the ethics of putting them in front of people.</p>
+      <ul class="facts">
+        <li>Boston, MA</li>
+        <li>Spanish &amp; Swiss</li>
+        <li>5 languages</li>
+        <li>Wingfoiler</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="about">
+    <p class="label">About</p>
+    <h2>A bit about me</h2>
+    <div class="prose">
+      <p>I've lived in Costa Rica, Senegal, Benin, Italy, Germany, Switzerland, the UK and the US. Moving that much made me an empiricist: I don't really believe something until I've tried it myself.</p>
+      <p>I studied microengineering at EPFL in Lausanne, with an exchange year at TUM in Munich, then wrote my master's thesis in robotics at the Harvard Microrobotics Lab. I stayed on as a research fellow and led a project to build an insect-sized robot that can both walk and jump, inspired by springtails. It became my first-author paper in <em>Science Robotics</em>. After that I worked on the Headphone (1) at Nothing in London, and in 2024 I started my PhD at MIT.</p>
+      <p>At MIT CSAIL I work with humanoid robots: I brought up a Unitree G1 and deployed NVIDIA's GR00T model on it. As an MIT SERC Scholar I also looked at the ethics of putting models like this into real spaces. I teach too, as a TA for 6.UAR, where I advise more than 30 students a term through their first research projects.</p>
+      <p>Outside the lab I'm usually on the water wingfoiling or surfing, playing ping-pong, deep in a game of Dune: Imperium with friends, or reading philosophy and psychology.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <p class="label">Work</p>
+    <h2>Research &amp; engineering</h2>
+    <ul class="entries">
+      <li class="entry">
+        <span class="when">2025 – now</span>
+        <div class="entry-body">
+          <h3>Humanoid robots at the CSAIL Living Lab</h3>
+          <p><span class="where">MIT CSAIL.</span> Brought up a Unitree G1 humanoid with dexterous hands and deployed NVIDIA's GR00T vision-language-action model on it: teleoperation, cameras, networking and a test rig for repeatable trials.</p>
+          <div class="links"><a href="https://cap.csail.mit.edu/teaching-humanoid-robots-real-world-skills-mit-csails-living-lab" target="_blank" rel="noopener">Video interview (Embodied AI)</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2026</span>
+        <div class="entry-body">
+          <h3>Auditing a robot foundation model</h3>
+          <p><span class="where">MIT SERC.</span> Evaluated a deployed GR00T model against an AI-ethics framework through a stakeholder workshop and a deployment audit. Presented as a poster at the MIT SERC Symposium.</p>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2021 – 2025</span>
+        <div class="entry-body">
+          <h3>A springtail-inspired walking-jumping microrobot</h3>
+          <p><span class="where">Harvard Microrobotics Lab.</span> Led the project from concept through design, fabrication and high-speed testing to publication.</p>
+          <div class="links"><a href="https://www.science.org/doi/10.1126/scirobotics.adp7854" target="_blank" rel="noopener">Science Robotics, 2025</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2024</span>
+        <div class="entry-body">
+          <h3>Rapid manufacturing of pop-up MEMS devices</h3>
+          <p><span class="where">Harvard Microrobotics Lab.</span> Design considerations for building millimeter-scale mechanisms quickly.</p>
+          <div class="links"><a href="https://doi.org/10.1002/admt.202301940" target="_blank" rel="noopener">Advanced Materials Technologies, 2024</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2024</span>
+        <div class="entry-body">
+          <h3>Ergonomics testing for the Headphone (1)</h3>
+          <p><span class="where">Nothing, London.</span> Developed new test methods and turned force measurements into design and manufacturing recommendations.</p>
+          <div class="links"><a href="https://us.nothing.tech/products/headphone-1" target="_blank" rel="noopener">The product</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2025</span>
+        <div class="entry-body">
+          <h3>Hardware hackathon win in Shenzhen</h3>
+          <p><span class="where">Scalable HCI residency.</span> Building, factory visits and a close look at how products are made at scale.</p>
+          <div class="links"><a href="https://scalablehci.com/2025/program/" target="_blank" rel="noopener">Program</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2022 – 2023</span>
+        <div class="entry-body">
+          <h3>Millimeter-scale surgical tools</h3>
+          <p><span class="where">Project 1985, Harvard.</span> Designed and prototyped hydraulically actuated tools for a surgical-robotics start-up launched from the lab.</p>
+          <div class="links"><a href="https://otd.harvard.edu/news/harvard-and-1955-capital-collaborate-to-launch-surgical-robotics-startup/" target="_blank" rel="noopener">About the start-up</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2021</span>
+        <div class="entry-body">
+          <h3>Self-righting drones and propeller test benches</h3>
+          <p><span class="where">EPFL &amp; Flybotix.</span> Insect-inspired self-righting for fixed-wing drones, and a co-axial propeller test bench that cut bench costs by 75%.</p>
+          <div class="links"><a href="https://ieeexplore.ieee.org/document/9479684" target="_blank" rel="noopener">IEEE RA-L, 2021</a></div>
+        </div>
+      </li>
+      <li class="entry">
+        <span class="when">2024</span>
+        <div class="entry-body">
+          <h3>How to Make (Almost) Anything</h3>
+          <p><span class="where">MIT Center for Bits and Atoms.</span> A weekly build log from Neil Gershenfeld's digital fabrication class.</p>
+          <div class="links"><a href="https://fab.cba.mit.edu/classes/863.24/people/FranciscoRamirezSerrano/" target="_blank" rel="noopener">My class pages</a></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="talks">
+    <p class="label">Talks &amp; teaching</p>
+    <h2>Presenting and teaching</h2>
+    <ul class="entries compact">
+      <li class="entry"><span class="when">2026</span><div class="entry-body"><h3>Video interview, <a href="https://cap.csail.mit.edu/teaching-humanoid-robots-real-world-skills-mit-csails-living-lab" target="_blank" rel="noopener">Embodied AI at MIT CSAIL's Living Lab</a></h3></div></li>
+      <li class="entry"><span class="when">2026</span><div class="entry-body"><h3>Poster, MIT SERC Symposium</h3></div></li>
+      <li class="entry"><span class="when">2025</span><div class="entry-body"><h3>Poster, Scalable HCI Symposium, Shenzhen</h3></div></li>
+      <li class="entry"><span class="when">2023</span><div class="entry-body"><h3>Geneva Science and Diplomacy Anticipation Summit</h3></div></li>
+      <li class="entry"><span class="when">2022</span><div class="entry-body"><h3><a href="https://impulsivemuri.com/workshop2022.html" target="_blank" rel="noopener">ICRA 2022 workshop on impulsive systems</a>, Philadelphia</h3></div></li>
+    </ul>
+    <p class="subhead">Teaching</p>
+    <ul class="entries compact">
+      <li class="entry"><span class="when">2026</span><div class="entry-body"><h3>Teaching assistant, MIT 6.UAR Preparation for Undergraduate Research (two semesters)</h3></div></li>
+      <li class="entry"><span class="when">2025</span><div class="entry-body"><h3>AI and manufacturing workshop for children, Lithuania</h3></div></li>
+      <li class="entry"><span class="when">2024</span><div class="entry-body"><h3>Robotics tutor, TechLabs Geneva</h3></div></li>
+      <li class="entry"><span class="when">2023</span><div class="entry-body"><h3>Guest robotics teacher, 'Iolani School, Hawaii</h3></div></li>
+      <li class="entry"><span class="when">2023</span><div class="entry-body"><h3>Peer reviewer, IEEE Robotics and Automation Letters</h3></div></li>
+    </ul>
+  </section>
+
+  <section id="writing">
+    <p class="label">Writing</p>
+    <h2>Things I care about</h2>
+    <ul class="posts">
+      <li class="post">
+        <span class="status">In progress</span>
+        <h3>How I have fun</h3>
+        <p>Everyone secretly wants to jump in the water. On surfing, ping-pong, and being the person who gives everyone else the excuse.</p>
+      </li>
+      <li class="post">
+        <span class="status">In progress</span>
+        <h3>Reading notes: love, freedom and the self</h3>
+        <p>What I've taken from Harry Frankfurt's <em>The Reasons of Love</em>, Sartre's <em>Existentialism Is a Humanism</em>, and my detour through Jung, Freud and Adler.</p>
+      </li>
+      <li class="post">
+        <span class="status">In progress</span>
+        <h3>Robots, AI and the world we're building</h3>
+        <p>My view on where this is all going, from someone who has deployed a robot foundation model and audited it.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <p class="label">Contact</p>
+    <h2>Say hello</h2>
+    <div class="prose">
+      <p>I'm open to conversations about roles in robot evaluation, safety, deployment and technical diligence, especially in San Diego. I'm also always happy to talk philosophy, board games or where the wind is good this weekend.</p>
+    </div>
+    <div class="contact-row">
+      <span class="email" id="email">FrRamirezSerrano@gmail.com</span>
+      <button class="copy" id="copy-email" type="button">Copy email</button>
+    </div>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/francisco-ramirez-serrano-41aa8a249" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="Francisco_Ramirez_Serrano_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+    </div>
+  </section>
+
+  <footer>© 2026 Francisco Ramirez Serrano · Boston, MA</footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  var email = document.getElementById('email');
+  btn.addEventListener('click', function () {
+    var text = email.textContent.trim();
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(email);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected, press Ctrl/Cmd+C';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy email'; }, 1800);
+      }, selectIt);
+    } else { selectIt(); }
+  });
+})();
+</script>
+
+</body>
+</html>
