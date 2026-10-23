@@ -120,8 +120,18 @@ h1 {
   padding: 3px 9px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface);
 }
 @media (max-width: 560px) {
-  .intro { grid-template-columns: 1fr; gap: 18px; padding-block: 32px 28px; }
-  .intro img { width: min(22rem, 100%); }
+  /* Phone: compact profile card, photo beside name/role, the rest full width below */
+  .intro {
+    grid-template-columns: 7.5rem 1fr; grid-template-rows: auto auto 1fr auto auto;
+    column-gap: 16px; row-gap: 0; align-items: start; padding-block: 26px 22px;
+  }
+  .intro img { width: 100%; grid-row: 1 / span 3; }
+  .intro-text { display: contents; }
+  .intro h1 { grid-column: 2; font-size: 1.55rem; margin-bottom: 6px; }
+  .intro .role { grid-column: 2; font-size: 0.9375rem; line-height: 1.45; margin-bottom: 8px; }
+  .intro .cred { grid-column: 2; margin: 0; font-size: 0.875rem; }
+  .intro .welcome { grid-column: 1 / -1; margin: 18px 0 12px; font-size: 1.0625rem; }
+  .intro .chips { grid-column: 1 / -1; }
 }
 
 .contact {
