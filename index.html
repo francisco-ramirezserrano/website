@@ -603,6 +603,11 @@ footer {
       b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
     });
     try { localStorage.setItem('lang', lang); } catch (e) {}
+    try {
+      var u = new URL(location.href);
+      if (lang === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) {}
   }
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.langs button').forEach(function (b) {
@@ -618,7 +623,8 @@ footer {
     });
   });
 
-  var initial = 'en';
+  var initial = 'en', fromLink = null;
+  try { fromLink = new URLSearchParams(location.search).get('lang'); } catch (e) {}
   try { var saved = localStorage.getItem('lang'); if (saved) initial = saved; else throw 0; }
   catch (e) {
     var prefs = (navigator.languages || [navigator.language || 'en']);
@@ -627,6 +633,7 @@ footer {
       if (LANGS.indexOf(p) >= 0) { initial = p; break; }
     }
   }
+  if (fromLink && LANGS.indexOf(fromLink) >= 0) initial = fromLink;
   setLang(initial);
 
   // Views: #home, #about, #writing
