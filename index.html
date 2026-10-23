@@ -6,7 +6,9 @@
 <meta property="og:title" content="Francisco Ramirez Serrano">
 <meta property="og:description" content="PhD student at MIT. My work, and the things I'm curious about.">
 <meta property="og:image" content="https://franciscoramirezserrano.com/img/portrait.jpg">
-<link rel="icon" href="img/portrait.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Francisco Ramirez Serrano</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Francisco Ramirez Serrano: PhD student at MIT. My work, and the things I'm curious about.">
@@ -87,7 +89,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Intro */
 .intro {
-  display: grid; grid-template-columns: 13rem 1fr; gap: 32px; align-items: center;
+  display: grid; grid-template-columns: 17rem 1fr; gap: 34px; align-items: center;
   padding-block: 44px 36px;
 }
 .intro img { width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
@@ -105,7 +107,7 @@ h1 {
 }
 @media (max-width: 560px) {
   .intro { grid-template-columns: 1fr; gap: 18px; padding-block: 32px 28px; }
-  .intro img { width: min(16rem, 100%); }
+  .intro img { width: min(22rem, 100%); }
 }
 
 .contact {
@@ -193,6 +195,10 @@ button.media { cursor: pointer; }
 }
 .media:hover .play, .media:focus-visible .play { transform: scale(1.1); background: rgba(15, 24, 32, .88); }
 .media img.thumb { transition: transform .4s ease; }
+.ytbox iframe { pointer-events: none; }
+.media .hit { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; z-index: 2; }
+.media .tag { z-index: 3; pointer-events: none; transition: background-color .18s ease; }
+.media:hover .tag, .media:focus-within .tag { background: rgba(15, 24, 32, .92); }
 .media:hover img.thumb { transform: scale(1.04); }
 .media .tag {
   position: absolute; left: 8px; bottom: 8px; padding: 2px 7px; border-radius: 4px;
@@ -263,7 +269,7 @@ footer {
       <h2 data-i18n="h_work">Selected work</h2>
       <ul class="works">
         <li class="work">
-          <button class="media" type="button" data-yt="k-Jc3AeUnec" aria-label="Play video: Embodied AI at MIT CSAIL’s Living Lab"><img class="thumb" src="https://i.ytimg.com/vi/k-Jc3AeUnec/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="tag">YouTube</span></button>
+          <div class="media ytbox" data-yt="k-Jc3AeUnec"><img class="thumb" src="https://i.ytimg.com/vi/k-Jc3AeUnec/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><button class="hit" type="button" aria-label="Play video: Embodied AI at MIT CSAIL’s Living Lab"></button><span class="tag" data-i18n="sound">▶ with sound</span></div>
           <div class="work-body">
             <span class="when" data-i18n="w1_when">2025 – now</span>
             <h3 data-i18n="w1_t">Humanoid robots at MIT CSAIL</h3>
@@ -286,7 +292,7 @@ footer {
           </div>
         </li>
         <li class="work">
-          <button class="media" type="button" data-yt="SlGsq0yKnsk" aria-label="Play video: springtail-inspired jumping microrobot"><img class="thumb" src="https://i.ytimg.com/vi/SlGsq0yKnsk/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="tag">YouTube</span></button>
+          <div class="media ytbox" data-yt="SlGsq0yKnsk"><img class="thumb" src="https://i.ytimg.com/vi/SlGsq0yKnsk/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><button class="hit" type="button" aria-label="Play video: springtail-inspired jumping microrobot"></button><span class="tag" data-i18n="sound">▶ with sound</span></div>
           <div class="work-body">
             <span class="when">2025</span>
             <h3 data-i18n="w3_t">An insect-sized jumping robot</h3>
@@ -300,7 +306,7 @@ footer {
         <li class="work">
           <div class="media sk">
             <span class="fallback" data-i18n="sk_fb">3D scan of the Headphone (1)</span>
-            <iframe title="3D scan of the Nothing Headphone (1)" loading="lazy" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen src="https://sketchfab.com/models/b49b147ecb914f7fb645712f3f479537/embed?autostart=1&amp;autospin=0.3&amp;preload=1&amp;ui_theme=dark&amp;dnt=1"></iframe>
+            <iframe title="3D scan of the Nothing Headphone (1)" loading="lazy" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen src="https://sketchfab.com/models/b49b147ecb914f7fb645712f3f479537/embed?autostart=1&amp;autospin=0.9&amp;preload=1&amp;transparent=1&amp;ui_theme=dark&amp;dnt=1&amp;ui_infos=0&amp;ui_controls=0&amp;ui_stop=0&amp;ui_inspector=0&amp;ui_settings=0&amp;ui_help=0&amp;ui_hint=0&amp;ui_vr=0&amp;ui_ar=0&amp;ui_fullscreen=0&amp;ui_annotations=0&amp;ui_watermark=0&amp;ui_watermark_link=0&amp;ui_loading=0"></iframe>
           </div>
           <div class="work-body">
             <span class="when">2024</span>
@@ -309,6 +315,7 @@ footer {
             <div class="links">
               <a href="https://us.nothing.tech/products/headphone-1" target="_blank" rel="noopener" data-i18n="w4_l">The product</a>
               <span class="note" data-i18n="w4_hint">Drag the 3D scan to spin it.</span>
+              <a class="note" href="https://sketchfab.com/3d-models/nothing-headphone-1-for-dl-b49b147ecb914f7fb645712f3f479537" target="_blank" rel="noopener" data-i18n="sk_credit">3D model by S Visual</a>
             </div>
           </div>
         </li>
@@ -327,7 +334,7 @@ footer {
           </div>
         </li>
         <li class="work">
-          <button class="media" type="button" data-yt="15DdVN97A38" aria-label="Play video: self-righting fixed-wing drone"><img class="thumb" src="https://i.ytimg.com/vi/15DdVN97A38/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="tag">YouTube</span></button>
+          <div class="media ytbox" data-yt="15DdVN97A38"><img class="thumb" src="https://i.ytimg.com/vi/15DdVN97A38/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><button class="hit" type="button" aria-label="Play video: self-righting fixed-wing drone"></button><span class="tag" data-i18n="sound">▶ with sound</span></div>
           <div class="work-body">
             <span class="when">2020 – 2021</span>
             <h3 data-i18n="w6_t">Drones that flip themselves upright</h3>
@@ -346,7 +353,7 @@ footer {
       <div class="work" style="margin-bottom: 26px;">
         <button class="media" type="button" data-video="media/talk.mp4" aria-label="Play my Shenzhen hackathon pitch with sound">
           <video class="loop" src="media/talk-loop.mp4" poster="media/talk-poster.jpg" muted loop playsinline preload="metadata"></video>
-          <span class="play" aria-hidden="true"></span><span class="tag" data-i18n="sound">▶ with sound</span>
+          <span class="tag" data-i18n="sound">▶ with sound</span>
         </button>
         <div class="work-body">
           <span class="when">2025</span>
@@ -526,7 +533,7 @@ footer {
     h_talks: "Charlas, docencia y más", sound: "▶ con sonido",
     t3: "Premio del público en un hackathon de hardware en Shenzhen",
     cap: "Mi presentación durante la residencia Scalable HCI en Shenzhen. Toca el vídeo para verlo con sonido.",
-    prog: "Sobre la residencia", close: "Cerrar"
+    prog: "Sobre la residencia", close: "Cerrar", sk_credit: "Modelo 3D de S Visual"
   });
   Object.assign(T.fr, {
     w1_d: "J'ai mis en service un humanoïde Unitree G1 et déployé dessus le modèle d'IA GR00T de NVIDIA pour automatiser des expériences scientifiques.",
@@ -539,7 +546,7 @@ footer {
     h_talks: "Conférences, enseignement et plus", sound: "▶ avec le son",
     t3: "Prix du public lors d'un hackathon matériel à Shenzhen",
     cap: "Ma présentation pendant la résidence Scalable HCI à Shenzhen. Touchez la vidéo pour la lire avec le son.",
-    prog: "À propos de la résidence", close: "Fermer"
+    prog: "À propos de la résidence", close: "Fermer", sk_credit: "Modèle 3D par S Visual"
   });
   Object.assign(T.it, {
     w1_d: "Ho messo in funzione un umanoide Unitree G1 e vi ho implementato il modello di IA GR00T di NVIDIA per automatizzare esperimenti scientifici.",
@@ -552,7 +559,7 @@ footer {
     h_talks: "Interventi, didattica e altro", sound: "▶ con audio",
     t3: "Premio del pubblico a un hackathon hardware a Shenzhen",
     cap: "La mia presentazione durante la residenza Scalable HCI a Shenzhen. Tocca il video per guardarlo con l'audio.",
-    prog: "Sulla residenza", close: "Chiudi"
+    prog: "Sulla residenza", close: "Chiudi", sk_credit: "Modello 3D di S Visual"
   });
   Object.assign(T.de, {
     w1_d: "Ich habe einen humanoiden Unitree G1 in Betrieb genommen und darauf NVIDIAs KI-Modell GR00T eingesetzt, um wissenschaftliche Experimente zu automatisieren.",
@@ -565,7 +572,7 @@ footer {
     h_talks: "Vorträge, Lehre und mehr", sound: "▶ mit Ton",
     t3: "Publikumspreis bei einem Hardware-Hackathon in Shenzhen",
     cap: "Mein Pitch während der Scalable-HCI-Residency in Shenzhen. Tippe auf das Video, um es mit Ton abzuspielen.",
-    prog: "Über die Residency", close: "Schließen"
+    prog: "Über die Residency", close: "Schließen", sk_credit: "3D-Modell von S Visual"
   });
 
   // English is the text already in the page; capture it once.
@@ -626,14 +633,24 @@ footer {
   document.getElementById('lb-close').addEventListener('click', closeLB);
   lb.addEventListener('click', function (e) { if (e.target === lb) closeLB(); });
   lb.addEventListener('close', function () { frame.innerHTML = ''; });
-  document.querySelectorAll('[data-yt]').forEach(function (b) {
-    b.addEventListener('click', function () {
+  document.querySelectorAll('.ytbox').forEach(function (box) {
+    var id = box.getAttribute('data-yt'), hit = box.querySelector('.hit');
+    hit.addEventListener('click', function () {
       var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
-      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = b.getAttribute('aria-label');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = hit.getAttribute('aria-label');
       openLB(f);
     });
   });
+  // Silent, looping previews (like GIFs), started when a tile comes near the screen.
+  function startPreview(box) {
+    if (box.querySelector('iframe')) return;
+    var id = box.getAttribute('data-yt'), f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&mute=1&loop=1&playlist=' + id +
+            '&controls=0&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&fs=0&modestbranding=1';
+    f.allow = 'autoplay; encrypted-media'; f.tabIndex = -1; f.title = 'Video preview'; f.setAttribute('aria-hidden', 'true');
+    box.insertBefore(f, box.querySelector('.hit'));
+  }
   document.querySelectorAll('[data-video]').forEach(function (b) {
     b.addEventListener('click', function () {
       var v = document.createElement('video');
@@ -651,6 +668,10 @@ footer {
       });
     }, { threshold: 0.25 });
     loops.forEach(function (v) { io.observe(v); });
+    var io2 = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { startPreview(en.target); io2.unobserve(en.target); } });
+    }, { rootMargin: '200px' });
+    document.querySelectorAll('.ytbox').forEach(function (b) { io2.observe(b); });
   }
   window.addEventListener('hashchange', fromHash);
   fromHash();
