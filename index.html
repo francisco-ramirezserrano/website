@@ -86,13 +86,27 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Views */
 [data-view] { padding-block: 8px 24px; }
+[data-view]:not([hidden]) { animation: view-in .32s ease backwards; }
+@keyframes view-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+main, footer { transition: opacity .18s ease; }
+body.fading main, body.fading footer, body.leaving main { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  [data-view]:not([hidden]) { animation: none; }
+  main, footer { transition: none; }
+}
 
 /* Intro */
 .intro {
   display: grid; grid-template-columns: 17rem 1fr; gap: 34px; align-items: center;
   padding-block: 44px 36px;
 }
-.intro img { width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
+.intro img { width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1.2), box-shadow .35s ease; }
+.intro img:hover { transform: scale(1.045) rotate(-1deg); box-shadow: 0 14px 34px rgba(15, 24, 32, .28); }
+@media (prefers-reduced-motion: reduce) { .intro img { transition: none; } .intro img:hover { transform: none; } }
+.cred { margin: -6px 0 12px; font-size: 0.9375rem; }
+.cred a { color: inherit; text-decoration: none; background: linear-gradient(transparent 60%, var(--hl) 60%); padding: 0 2px; }
+.cred a:hover { text-decoration: underline; }
 .intro-text { min-width: 0; }
 h1 {
   font-family: var(--font-display); font-weight: 400;
@@ -247,6 +261,7 @@ footer {
       <div class="intro-text">
         <h1>Francisco Ramirez Serrano</h1>
         <p class="role" data-i18n="role">PhD student at MIT, Electrical Engineering and Computer Science</p>
+        <p class="cred" data-i18n="cred"><a href="https://www.science.org/doi/10.1126/scirobotics.adp7854" target="_blank" rel="noopener">First author in <em>Science Robotics</em></a></p>
         <p class="welcome" data-i18n="welcome">Welcome! This is where I share my work and the things I'm curious about.</p>
         <ul class="chips">
           <li data-i18n="i_robotics">Robotics</li>
@@ -288,7 +303,7 @@ footer {
           <div class="work-body">
             <span class="when">2025 – 2026 · MIT SERC Scholar</span>
             <h3 data-i18n="w2_t">What should we use humanoid robots for?</h3>
-            <p data-i18n="w2_d">As an MIT SERC Scholar (Social and Ethical Responsibilities of Computing), I audited our robot's AI model using the framework from <a href="https://arxiv.org/abs/2404.16244" target="_blank" rel="noopener">The Ethics of Advanced AI Assistants</a> (Gabriel et al., 2024) and ran a stakeholder role-play workshop. I presented the results as a poster at the MIT SERC Symposium.</p>
+            <p data-i18n="w2_d">As an <a href="https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/serc-scholars-program/" target="_blank" rel="noopener">MIT SERC Scholar</a> (Social and Ethical Responsibilities of Computing), I audited our robot's AI model using the framework from <a href="https://arxiv.org/abs/2404.16244" target="_blank" rel="noopener">The Ethics of Advanced AI Assistants</a> (Gabriel et al., 2024).</p>
           </div>
         </li>
         <li class="work">
@@ -296,7 +311,7 @@ footer {
           <div class="work-body">
             <span class="when">2025</span>
             <h3 data-i18n="w3_t">An insect-sized jumping robot</h3>
-            <p data-i18n="w3_d">At the Harvard Microrobotics Lab I led a walking-jumping microrobot inspired by springtails, from first design to publication.</p>
+            <p data-i18n="w3_d">At Harvard, I invented a walking-jumping microrobot inspired by springtails.</p>
             <div class="links">
               <a href="https://www.science.org/doi/10.1126/scirobotics.adp7854" target="_blank" rel="noopener">Science Robotics, 2025</a>
               <span class="note" data-i18n="fa">First author</span>
@@ -311,10 +326,9 @@ footer {
           <div class="work-body">
             <span class="when">2024</span>
             <h3 data-i18n="w4_t">Ergonomics testing at Nothing</h3>
-            <p data-i18n="w4_d">In London I developed new test methods for the Headphone (1) and turned force measurements into design recommendations.</p>
+            <p data-i18n="w4_d">In London, I developed new methods to test the ergonomics of the Headphone (1).</p>
             <div class="links">
               <a href="https://us.nothing.tech/products/headphone-1" target="_blank" rel="noopener" data-i18n="w4_l">The product</a>
-              <span class="note" data-i18n="w4_hint">Drag the 3D scan to spin it.</span>
               <a class="note" href="https://sketchfab.com/3d-models/nothing-headphone-1-for-dl-b49b147ecb914f7fb645712f3f479537" target="_blank" rel="noopener" data-i18n="sk_credit">3D model by S Visual</a>
             </div>
           </div>
@@ -358,15 +372,15 @@ footer {
         <div class="work-body">
           <span class="when">2025</span>
           <h3 data-i18n="t3">People's Choice award at a hardware hackathon in Shenzhen</h3>
-          <p data-i18n="cap">My pitch during the Scalable HCI residency in Shenzhen. Tap the video to play it with sound.</p>
+          <p data-i18n="cap">My pitch at the Scalable HCI residency in Shenzhen.</p>
           <div class="links"><a href="https://scalablehci.com/2025/program/" target="_blank" rel="noopener" data-i18n="prog">About the residency</a></div>
         </div>
       </div>
       <ul class="entries compact">
-        <li class="entry"><span class="when">2026</span><div class="entry-body"><h3 data-i18n="t1">Teaching assistant, MIT 6.UAR (two semesters, 30+ students each)</h3></div></li>
+        <li class="entry"><span class="when">2026</span><div class="entry-body"><h3 data-i18n="t1">Teaching assistant for MIT's class that prepares undergraduates for research (6.UAR), two semesters, 30+ students each</h3></div></li>
         <li class="entry"><span class="when">2023 – 2025</span><div class="entry-body"><h3 data-i18n="t4">Robotics teaching in Geneva, Hawaii and Lithuania</h3></div></li>
         <li class="entry"><span class="when">2023</span><div class="entry-body"><h3 data-i18n="t5">Peer reviewer, IEEE Robotics and Automation Letters</h3></div></li>
-        <li class="entry"><span class="when">2022</span><div class="entry-body"><h3 data-i18n="t6">ICRA 2022 workshop, Philadelphia</h3></div></li>
+        <li class="entry"><span class="when">2022</span><div class="entry-body"><h3 data-i18n="t6">Workshop at ICRA 2022 (International Conference on Robotics and Automation), Philadelphia</h3></div></li>
       </ul>
     </section>
   </main>
@@ -396,7 +410,7 @@ footer {
         <li class="post">
           <span class="status" data-i18n="status">In progress</span>
           <h3 data-i18n="p1_t">How I have fun</h3>
-          <p data-i18n="p1_d">Everyone secretly wants to jump in the water. On surfing, ping-pong, and being the person who gives everyone else the excuse.</p>
+          <p data-i18n="p1_d">On surfing, ping-pong, board games and video games, and what they have to do with the beauty of life.</p>
         </li>
         <li class="post">
           <span class="status" data-i18n="status">In progress</span>
@@ -417,7 +431,7 @@ footer {
     <div class="lb-frame" id="lb-frame"></div>
   </dialog>
 
-  <footer>© 2026 Francisco Ramirez Serrano</footer>
+  <footer>© 2026 Francisco Ramirez Serrano · <span data-i18n="made">Built with the help of Claude (AI).</span></footer>
 </div>
 
 <script>
@@ -430,20 +444,18 @@ footer {
       i_robotics: "Robótica", i_teach: "Docencia", i_philo: "Filosofía", i_water: "Wingfoil y surf", i_games: "Juegos de mesa", i_cali: "Calistenia",
       contact: "Contacto", cv: "CV (PDF)",
       h_work: "Trabajo destacado",
-      w1_when: "2025 – hoy", w1_t: "Robots humanoides en el MIT CSAIL", w1_d: "Puse en marcha un humanoide Unitree G1 y desplegué en él el modelo de IA GR00T de NVIDIA.",
-      w2_t: "Auditoría de un modelo de IA para robots", w2_d: "Evalué el modelo desplegado según un marco de ética de la IA, con un taller con las partes interesadas. Póster en el MIT SERC Symposium.",
-      w3_t: "Un robot saltador del tamaño de un insecto", w3_d: "En el Harvard Microrobotics Lab dirigí un microrrobot que camina y salta, inspirado en los colémbolos, desde el primer diseño hasta su publicación.",
-      w4_t: "Pruebas de ergonomía en Nothing", w4_d: "En Londres desarrollé nuevos métodos de prueba para los Headphone (1) y convertí mediciones de fuerza en recomendaciones de diseño.", w4_l: "El producto",
-      w6_t: "Drones que se enderezan solos", w6_d: "En la EPFL y en Flybotix trabajé en el autoenderezamiento de drones de ala fija inspirado en insectos y construí un banco de pruebas de hélices que redujo los costes un 75 %.",
-      h_talks: "Charlas y docencia",
-      t1: "Profesor asistente, MIT 6.UAR (dos semestres, más de 30 estudiantes cada uno)", t3: "Ganador de un hackathon de hardware y póster, Scalable HCI, Shenzhen", t4: "Clases de robótica en Ginebra, Hawái y Lituania", t5: "Revisor, IEEE Robotics and Automation Letters", t6: "Taller de ICRA 2022, Filadelfia",
+      w1_when: "2025 – hoy", w1_t: "Robots humanoides en el MIT CSAIL",
+      w3_t: "Un robot saltador del tamaño de un insecto", w3_d: "En Harvard inventé un microrrobot que camina y salta, inspirado en los colémbolos.",
+      w4_t: "Pruebas de ergonomía en Nothing", w4_d: "En Londres desarrollé nuevos métodos para probar la ergonomía de los Headphone (1).", w4_l: "El producto",
+      w6_t: "Drones que se enderezan solos",
+      t1: "Profesor asistente en la asignatura del MIT que prepara a estudiantes de grado para investigar (6.UAR), dos semestres, más de 30 estudiantes cada uno", t4: "Clases de robótica en Ginebra, Hawái y Lituania", t5: "Revisor, IEEE Robotics and Automation Letters", t6: "Taller en ICRA 2022 (International Conference on Robotics and Automation), Filadelfia",
       a1: "He vivido en Costa Rica, Senegal, Benín, Italia, Alemania, Suiza, el Reino Unido y Estados Unidos, y soy español y suizo. Mudarme tanto me hizo empirista: no termino de creerme algo hasta que lo he probado yo mismo.",
       a2: "Estudié microingeniería en la EPFL de Lausana, con un año de intercambio en la TUM de Múnich, e hice mi tesis de máster en robótica en Harvard. Me quedé allí como investigador, trabajé en Nothing en Londres y empecé el doctorado en el MIT en 2024.",
       a3: "En el MIT trabajo con robots humanoides y pienso mucho en cómo debería usarse la IA entre personas; fui MIT SERC Scholar precisamente en eso. También doy clases y acompaño a estudiantes en sus primeros proyectos de investigación.",
       a4: "Fuera del trabajo suelo estar en el agua haciendo wingfoil o surf, jugando al ping-pong, metido en una partida de Dune: Imperium con amigos o leyendo filosofía y psicología.",
       a5: "Hablo español, inglés, francés, alemán e italiano.",
       wr_intro: "Textos en los que estoy trabajando.", status: "En curso",
-      p1_t: "Cómo me divierto", p1_d: "En el fondo, todo el mundo quiere tirarse al agua. Sobre el surf, el ping-pong y ser quien les da a los demás la excusa.",
+      p1_t: "Cómo me divierto", p1_d: "Sobre el surf, el ping-pong, los juegos de mesa y los videojuegos, y qué tienen que ver con la belleza de la vida.",
       p2_t: "Notas de lectura: el amor, la libertad y el yo", p2_d: "Lo que me he llevado de <em>Las razones del amor</em> de Harry Frankfurt, <em>El existencialismo es un humanismo</em> de Sartre, y de Jung, Freud y Adler.",
       p3_t: "Robots, IA y el mundo que estamos construyendo", p3_d: "Mi visión de hacia dónde va todo esto, de alguien que ha desplegado un modelo de IA en un robot y lo ha auditado."
     },
@@ -454,20 +466,18 @@ footer {
       i_robotics: "Robotique", i_teach: "Enseignement", i_philo: "Philosophie", i_water: "Wingfoil et surf", i_games: "Jeux de société", i_cali: "Callisthénie",
       contact: "Contact", cv: "CV (PDF)",
       h_work: "Travaux choisis",
-      w1_when: "2025 – auj.", w1_t: "Robots humanoïdes au MIT CSAIL", w1_d: "J'ai mis en service un humanoïde Unitree G1 et déployé dessus le modèle d'IA GR00T de NVIDIA.",
-      w2_t: "Audit d'un modèle d'IA pour robots", w2_d: "J'ai évalué le modèle déployé selon un cadre d'éthique de l'IA, avec un atelier réunissant les parties prenantes. Poster au MIT SERC Symposium.",
-      w3_t: "Un robot sauteur de la taille d'un insecte", w3_d: "Au Harvard Microrobotics Lab, j'ai mené un microrobot marcheur et sauteur inspiré des collemboles, de la première conception à la publication.",
-      w4_t: "Tests d'ergonomie chez Nothing", w4_d: "À Londres, j'ai développé de nouvelles méthodes de test pour le Headphone (1) et traduit des mesures de force en recommandations de conception.", w4_l: "Le produit",
-      w6_t: "Des drones qui se redressent seuls", w6_d: "À l'EPFL et chez Flybotix, j'ai travaillé sur le redressement autonome de drones à voilure fixe inspiré des insectes et construit un banc d'essai d'hélices qui a réduit les coûts de 75 %.",
-      h_talks: "Conférences et enseignement",
-      t1: "Assistant d'enseignement, MIT 6.UAR (deux semestres, plus de 30 étudiants chacun)", t3: "Lauréat d'un hackathon matériel et poster, Scalable HCI, Shenzhen", t4: "Enseignement de la robotique à Genève, à Hawaï et en Lituanie", t5: "Relecteur, IEEE Robotics and Automation Letters", t6: "Atelier ICRA 2022, Philadelphie",
+      w1_when: "2025 – auj.", w1_t: "Robots humanoïdes au MIT CSAIL",
+      w3_t: "Un robot sauteur de la taille d'un insecte", w3_d: "À Harvard, j'ai inventé un microrobot marcheur et sauteur inspiré des collemboles.",
+      w4_t: "Tests d'ergonomie chez Nothing", w4_d: "À Londres, j'ai développé de nouvelles méthodes pour tester l'ergonomie du Headphone (1).", w4_l: "Le produit",
+      w6_t: "Des drones qui se redressent seuls",
+      t1: "Assistant d'enseignement pour le cours du MIT qui prépare les étudiants de premier cycle à la recherche (6.UAR), deux semestres, plus de 30 étudiants chacun", t4: "Enseignement de la robotique à Genève, à Hawaï et en Lituanie", t5: "Relecteur, IEEE Robotics and Automation Letters", t6: "Atelier à ICRA 2022 (International Conference on Robotics and Automation), Philadelphie",
       a1: "J'ai vécu au Costa Rica, au Sénégal, au Bénin, en Italie, en Allemagne, en Suisse, au Royaume-Uni et aux États-Unis, et je suis espagnol et suisse. Avoir autant déménagé a fait de moi un empiriste : je ne crois vraiment une chose qu'après l'avoir essayée moi-même.",
       a2: "J'ai étudié la microtechnique à l'EPFL à Lausanne, avec une année d'échange à la TUM à Munich, puis j'ai rédigé mon mémoire de master en robotique à Harvard. J'y suis resté comme chercheur, j'ai travaillé chez Nothing à Londres et j'ai commencé mon doctorat au MIT en 2024.",
       a3: "Au MIT, je travaille avec des robots humanoïdes et je réfléchis beaucoup à la façon dont l'IA devrait être utilisée auprès des gens ; j'ai été MIT SERC Scholar précisément sur ce sujet. J'enseigne aussi, en accompagnant des étudiants dans leurs premiers projets de recherche.",
       a4: "En dehors du travail, je suis souvent sur l'eau à faire du wingfoil ou du surf, à jouer au ping-pong, plongé dans une partie de Dune: Imperium entre amis, ou en train de lire de la philosophie et de la psychologie.",
       a5: "Je parle espagnol, anglais, français, allemand et italien.",
       wr_intro: "Les textes sur lesquels je travaille.", status: "En cours",
-      p1_t: "Comment je m'amuse", p1_d: "Au fond, tout le monde a envie de sauter à l'eau. Sur le surf, le ping-pong, et le fait d'être celui qui donne l'excuse aux autres.",
+      p1_t: "Comment je m'amuse", p1_d: "Sur le surf, le ping-pong, les jeux de société et les jeux vidéo, et ce qu'ils ont à voir avec la beauté de la vie.",
       p2_t: "Notes de lecture : l'amour, la liberté et le soi", p2_d: "Ce que je retiens des <em>Raisons de l'amour</em> de Harry Frankfurt, de <em>L'existentialisme est un humanisme</em> de Sartre, et de Jung, Freud et Adler.",
       p3_t: "Robots, IA et le monde que nous construisons", p3_d: "Mon regard sur la direction que prend tout cela, de la part de quelqu'un qui a déployé un modèle d'IA sur un robot et l'a audité."
     },
@@ -478,20 +488,18 @@ footer {
       i_robotics: "Robotica", i_teach: "Insegnamento", i_philo: "Filosofia", i_water: "Wingfoil e surf", i_games: "Giochi da tavolo", i_cali: "Calisthenics",
       contact: "Contatti", cv: "CV (PDF)",
       h_work: "Lavori selezionati",
-      w1_when: "2025 – oggi", w1_t: "Robot umanoidi al MIT CSAIL", w1_d: "Ho messo in funzione un umanoide Unitree G1 e vi ho implementato il modello di IA GR00T di NVIDIA.",
-      w2_t: "Audit di un modello di IA per robot", w2_d: "Ho valutato il modello implementato secondo un quadro di etica dell'IA, con un workshop con le parti interessate. Poster al MIT SERC Symposium.",
-      w3_t: "Un robot saltatore grande come un insetto", w3_d: "All'Harvard Microrobotics Lab ho guidato un microrobot che cammina e salta, ispirato ai collemboli, dal primo progetto alla pubblicazione.",
-      w4_t: "Test di ergonomia da Nothing", w4_d: "A Londra ho sviluppato nuovi metodi di test per le Headphone (1) e trasformato misure di forza in raccomandazioni di progettazione.", w4_l: "Il prodotto",
-      w6_t: "Droni che si raddrizzano da soli", w6_d: "All'EPFL e da Flybotix ho lavorato sull'auto-raddrizzamento di droni ad ala fissa ispirato agli insetti e costruito un banco prova per eliche che ha ridotto i costi del 75%.",
-      h_talks: "Interventi e didattica",
-      t1: "Assistente alla didattica, MIT 6.UAR (due semestri, oltre 30 studenti ciascuno)", t3: "Vincitore di un hackathon hardware e poster, Scalable HCI, Shenzhen", t4: "Insegnamento di robotica a Ginevra, alle Hawaii e in Lituania", t5: "Revisore, IEEE Robotics and Automation Letters", t6: "Workshop ICRA 2022, Filadelfia",
+      w1_when: "2025 – oggi", w1_t: "Robot umanoidi al MIT CSAIL",
+      w3_t: "Un robot saltatore grande come un insetto", w3_d: "A Harvard ho inventato un microrobot che cammina e salta, ispirato ai collemboli.",
+      w4_t: "Test di ergonomia da Nothing", w4_d: "A Londra ho sviluppato nuovi metodi per testare l'ergonomia delle Headphone (1).", w4_l: "Il prodotto",
+      w6_t: "Droni che si raddrizzano da soli",
+      t1: "Assistente alla didattica nel corso del MIT che prepara gli studenti universitari alla ricerca (6.UAR), due semestri, oltre 30 studenti ciascuno", t4: "Insegnamento di robotica a Ginevra, alle Hawaii e in Lituania", t5: "Revisore, IEEE Robotics and Automation Letters", t6: "Workshop a ICRA 2022 (International Conference on Robotics and Automation), Filadelfia",
       a1: "Ho vissuto in Costa Rica, Senegal, Benin, Italia, Germania, Svizzera, Regno Unito e Stati Uniti, e sono spagnolo e svizzero. Traslocare così tanto mi ha reso un empirista: non credo davvero a qualcosa finché non l'ho provata di persona.",
       a2: "Ho studiato microingegneria all'EPFL di Losanna, con un anno di scambio alla TUM di Monaco, e ho scritto la tesi di master in robotica a Harvard. Sono rimasto come ricercatore, ho lavorato da Nothing a Londra e nel 2024 ho iniziato il dottorato al MIT.",
       a3: "Al MIT lavoro con robot umanoidi e rifletto molto su come l'IA dovrebbe essere usata tra le persone; sono stato MIT SERC Scholar proprio su questo. Insegno anche, seguendo gli studenti nei loro primi progetti di ricerca.",
       a4: "Fuori dal lavoro di solito sono in acqua a fare wingfoil o surf, a giocare a ping-pong, immerso in una partita a Dune: Imperium con gli amici, oppure a leggere filosofia e psicologia.",
       a5: "Parlo spagnolo, inglese, francese, tedesco e italiano.",
       wr_intro: "I testi a cui sto lavorando.", status: "In corso",
-      p1_t: "Come mi diverto", p1_d: "In fondo, tutti vogliono buttarsi in acqua. Sul surf, il ping-pong e sull'essere quello che dà agli altri la scusa.",
+      p1_t: "Come mi diverto", p1_d: "Sul surf, il ping-pong, i giochi da tavolo e i videogiochi, e cosa c'entrano con la bellezza della vita.",
       p2_t: "Appunti di lettura: l'amore, la libertà e il sé", p2_d: "Cosa mi hanno lasciato <em>Le ragioni dell'amore</em> di Harry Frankfurt, <em>L'esistenzialismo è un umanismo</em> di Sartre, e Jung, Freud e Adler.",
       p3_t: "Robot, IA e il mondo che stiamo costruendo", p3_d: "La mia visione su dove sta andando tutto questo, da parte di chi ha implementato un modello di IA su un robot e lo ha sottoposto ad audit."
     },
@@ -502,20 +510,18 @@ footer {
       i_robotics: "Robotik", i_teach: "Unterrichten", i_philo: "Philosophie", i_water: "Wingfoilen & Surfen", i_games: "Brettspiele", i_cali: "Calisthenics",
       contact: "Kontakt", cv: "Lebenslauf (PDF)",
       h_work: "Ausgewählte Arbeiten",
-      w1_when: "2025 – heute", w1_t: "Humanoide Roboter am MIT CSAIL", w1_d: "Ich habe einen humanoiden Unitree G1 in Betrieb genommen und darauf NVIDIAs KI-Modell GR00T eingesetzt.",
-      w2_t: "Audit eines KI-Modells für Roboter", w2_d: "Ich habe das eingesetzte Modell anhand eines KI-Ethik-Rahmens bewertet, einschließlich eines Workshops mit Stakeholdern. Poster beim MIT SERC Symposium.",
-      w3_t: "Ein insektengroßer Springroboter", w3_d: "Am Harvard Microrobotics Lab habe ich einen lauf- und sprungfähigen Mikroroboter nach dem Vorbild von Springschwänzen geleitet, vom ersten Entwurf bis zur Veröffentlichung.",
-      w4_t: "Ergonomietests bei Nothing", w4_d: "In London habe ich neue Testmethoden für den Headphone (1) entwickelt und Kraftmessungen in Designempfehlungen übersetzt.", w4_l: "Das Produkt",
-      w6_t: "Drohnen, die sich selbst aufrichten", w6_d: "An der EPFL und bei Flybotix habe ich an insekteninspirierter Selbstaufrichtung für Starrflügeldrohnen gearbeitet und einen Propeller-Prüfstand gebaut, der die Kosten um 75 % senkte.",
-      h_talks: "Vorträge und Lehre",
-      t1: "Lehrassistent, MIT 6.UAR (zwei Semester, je über 30 Studierende)", t3: "Gewinner eines Hardware-Hackathons und Poster, Scalable HCI, Shenzhen", t4: "Robotik-Unterricht in Genf, auf Hawaii und in Litauen", t5: "Gutachter, IEEE Robotics and Automation Letters", t6: "ICRA-2022-Workshop, Philadelphia",
+      w1_when: "2025 – heute", w1_t: "Humanoide Roboter am MIT CSAIL",
+      w3_t: "Ein insektengroßer Springroboter", w3_d: "In Harvard habe ich einen lauf- und sprungfähigen Mikroroboter nach dem Vorbild von Springschwänzen erfunden.",
+      w4_t: "Ergonomietests bei Nothing", w4_d: "In London habe ich neue Methoden entwickelt, um die Ergonomie des Headphone (1) zu testen.", w4_l: "Das Produkt",
+      w6_t: "Drohnen, die sich selbst aufrichten",
+      t1: "Lehrassistent im MIT-Kurs, der Bachelorstudierende auf die Forschung vorbereitet (6.UAR), zwei Semester, je über 30 Studierende", t4: "Robotik-Unterricht in Genf, auf Hawaii und in Litauen", t5: "Gutachter, IEEE Robotics and Automation Letters", t6: "Workshop auf der ICRA 2022 (International Conference on Robotics and Automation), Philadelphia",
       a1: "Ich habe in Costa Rica, Senegal, Benin, Italien, Deutschland, der Schweiz, Großbritannien und den USA gelebt und bin Spanier und Schweizer. Die vielen Umzüge haben mich zum Empiriker gemacht: Ich glaube etwas erst wirklich, wenn ich es selbst ausprobiert habe.",
       a2: "Ich habe Mikrotechnik an der EPFL in Lausanne studiert, mit einem Austauschjahr an der TUM in München, und meine Masterarbeit in Robotik in Harvard geschrieben. Danach blieb ich dort als Research Fellow, arbeitete bei Nothing in London und begann 2024 meine Promotion am MIT.",
       a3: "Am MIT arbeite ich mit humanoiden Robotern und denke viel darüber nach, wie KI im Umgang mit Menschen eingesetzt werden sollte; genau dazu war ich MIT SERC Scholar. Außerdem unterrichte ich und begleite Studierende bei ihren ersten Forschungsprojekten.",
       a4: "Außerhalb der Arbeit bin ich meist auf dem Wasser beim Wingfoilen oder Surfen, spiele Tischtennis, stecke mitten in einer Partie Dune: Imperium mit Freunden oder lese Philosophie und Psychologie.",
       a5: "Ich spreche Spanisch, Englisch, Französisch, Deutsch und Italienisch.",
       wr_intro: "Texte, an denen ich gerade arbeite.", status: "In Arbeit",
-      p1_t: "Wie ich Spaß habe", p1_d: "Insgeheim will jeder ins Wasser springen. Über Surfen, Tischtennis und darüber, derjenige zu sein, der den anderen den Vorwand liefert.",
+      p1_t: "Wie ich Spaß habe", p1_d: "Über Surfen, Tischtennis, Brettspiele und Videospiele und was sie mit der Schönheit des Lebens zu tun haben.",
       p2_t: "Lesenotizen: Liebe, Freiheit und das Selbst", p2_d: "Was ich aus Harry Frankfurts <em>Gründe der Liebe</em>, Sartres <em>Der Existentialismus ist ein Humanismus</em> sowie von Jung, Freud und Adler mitgenommen habe.",
       p3_t: "Roboter, KI und die Welt, die wir bauen", p3_d: "Meine Sicht darauf, wohin das alles führt, von jemandem, der ein KI-Modell auf einem Roboter eingesetzt und geprüft hat."
     }
@@ -523,56 +529,60 @@ footer {
 
   var AX = '<a href="https://arxiv.org/abs/2404.16244" target="_blank" rel="noopener">The Ethics of Advanced AI Assistants</a> (Gabriel et al., 2024)';
   Object.assign(T.es, {
+    cred: "<a href=\"https://www.science.org/doi/10.1126/scirobotics.adp7854\" target=\"_blank\" rel=\"noopener\">Primer autor en <em>Science Robotics</em></a>",
     w1_d: "Puse en marcha un humanoide Unitree G1 y desplegué en él el modelo de IA GR00T de NVIDIA para automatizar experimentos científicos.",
     yt: "Ver en YouTube", w1_art: "Artículo del Living Lab",
     w2_t: "¿Para qué deberíamos usar los robots humanoides?",
-    w2_d: "Como MIT SERC Scholar (Social and Ethical Responsibilities of Computing: responsabilidades sociales y éticas de la computación), audité el modelo de IA de nuestro robot con el marco de " + AX + " y organicé un taller de juego de roles con los distintos grupos de interés. Presenté los resultados en un póster en el MIT SERC Symposium.",
-    fa: "Primer autor", ca: "Coautor", sk_fb: "Escaneo 3D de los Headphone (1)", w4_hint: "Arrastra el modelo 3D para girarlo.",
+    w2_d: "Como <a href=\"https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/serc-scholars-program/\" target=\"_blank\" rel=\"noopener\">MIT SERC Scholar</a>, audité el modelo de IA de nuestro robot con el marco de " + AX + ".",
+    fa: "Primer autor", ca: "Coautor", sk_fb: "Escaneo 3D de los Headphone (1)",
     w7_t: "Fabricar microrrobots desplegables más rápido", w7_d: "Reglas de diseño para dispositivos MEMS desplegables que reducen el tiempo de laminación de 3 horas a 10 minutos.",
     w6_d: "En el Laboratorio de Sistemas Inteligentes de la EPFL trabajé en el autoenderezamiento de drones de ala fija inspirado en insectos.",
     h_talks: "Charlas, docencia y más", sound: "▶ con sonido",
     t3: "Premio del público en un hackathon de hardware en Shenzhen",
-    cap: "Mi presentación durante la residencia Scalable HCI en Shenzhen. Toca el vídeo para verlo con sonido.",
-    prog: "Sobre la residencia", close: "Cerrar", sk_credit: "Modelo 3D de S Visual"
+    cap: "Mi presentación en la residencia Scalable HCI en Shenzhen.",
+    prog: "Sobre la residencia", close: "Cerrar", made: "Hecho con la ayuda de Claude (IA).", sk_credit: "Modelo 3D de S Visual"
   });
   Object.assign(T.fr, {
+    cred: "<a href=\"https://www.science.org/doi/10.1126/scirobotics.adp7854\" target=\"_blank\" rel=\"noopener\">Premier auteur dans <em>Science Robotics</em></a>",
     w1_d: "J'ai mis en service un humanoïde Unitree G1 et déployé dessus le modèle d'IA GR00T de NVIDIA pour automatiser des expériences scientifiques.",
     yt: "Voir sur YouTube", w1_art: "Article du Living Lab",
     w2_t: "À quoi devrions-nous utiliser les robots humanoïdes ?",
-    w2_d: "En tant que MIT SERC Scholar (Social and Ethical Responsibilities of Computing : responsabilités sociales et éthiques de l'informatique), j'ai audité le modèle d'IA de notre robot à l'aide du cadre de " + AX + " et animé un atelier de jeu de rôle autour des parties prenantes. J'ai présenté les résultats sous forme de poster au MIT SERC Symposium.",
-    fa: "Premier auteur", ca: "Co-auteur", sk_fb: "Scan 3D du Headphone (1)", w4_hint: "Faites glisser le modèle 3D pour le tourner.",
+    w2_d: "En tant que <a href=\"https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/serc-scholars-program/\" target=\"_blank\" rel=\"noopener\">MIT SERC Scholar</a>, j'ai audité le modèle d'IA de notre robot à l'aide du cadre de " + AX + ".",
+    fa: "Premier auteur", ca: "Co-auteur", sk_fb: "Scan 3D du Headphone (1)",
     w7_t: "Fabriquer plus vite des microrobots pop-up", w7_d: "Des règles de conception pour dispositifs MEMS pop-up qui réduisent le temps de laminage de 3 heures à 10 minutes.",
     w6_d: "Au Laboratoire de systèmes intelligents de l'EPFL, j'ai travaillé sur le redressement autonome de drones à voilure fixe inspiré des insectes.",
     h_talks: "Conférences, enseignement et plus", sound: "▶ avec le son",
     t3: "Prix du public lors d'un hackathon matériel à Shenzhen",
-    cap: "Ma présentation pendant la résidence Scalable HCI à Shenzhen. Touchez la vidéo pour la lire avec le son.",
-    prog: "À propos de la résidence", close: "Fermer", sk_credit: "Modèle 3D par S Visual"
+    cap: "Ma présentation à la résidence Scalable HCI à Shenzhen.",
+    prog: "À propos de la résidence", close: "Fermer", made: "Réalisé avec l'aide de Claude (IA).", sk_credit: "Modèle 3D par S Visual"
   });
   Object.assign(T.it, {
+    cred: "<a href=\"https://www.science.org/doi/10.1126/scirobotics.adp7854\" target=\"_blank\" rel=\"noopener\">Primo autore su <em>Science Robotics</em></a>",
     w1_d: "Ho messo in funzione un umanoide Unitree G1 e vi ho implementato il modello di IA GR00T di NVIDIA per automatizzare esperimenti scientifici.",
     yt: "Guarda su YouTube", w1_art: "Articolo sul Living Lab",
     w2_t: "Per cosa dovremmo usare i robot umanoidi?",
-    w2_d: "Come MIT SERC Scholar (Social and Ethical Responsibilities of Computing: responsabilità sociali ed etiche dell'informatica), ho sottoposto ad audit il modello di IA del nostro robot con il quadro di " + AX + " e ho condotto un workshop di role-play sulle parti interessate. Ho presentato i risultati con un poster al MIT SERC Symposium.",
-    fa: "Primo autore", ca: "Coautore", sk_fb: "Scansione 3D delle Headphone (1)", w4_hint: "Trascina il modello 3D per ruotarlo.",
+    w2_d: "Come <a href=\"https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/serc-scholars-program/\" target=\"_blank\" rel=\"noopener\">MIT SERC Scholar</a>, ho sottoposto ad audit il modello di IA del nostro robot con il quadro di " + AX + ".",
+    fa: "Primo autore", ca: "Coautore", sk_fb: "Scansione 3D delle Headphone (1)",
     w7_t: "Costruire più velocemente microrobot pop-up", w7_d: "Regole di progettazione per dispositivi MEMS pop-up che riducono il tempo di laminazione da 3 ore a 10 minuti.",
     w6_d: "Al Laboratorio di Sistemi Intelligenti dell'EPFL ho lavorato sull'auto-raddrizzamento di droni ad ala fissa ispirato agli insetti.",
     h_talks: "Interventi, didattica e altro", sound: "▶ con audio",
     t3: "Premio del pubblico a un hackathon hardware a Shenzhen",
-    cap: "La mia presentazione durante la residenza Scalable HCI a Shenzhen. Tocca il video per guardarlo con l'audio.",
-    prog: "Sulla residenza", close: "Chiudi", sk_credit: "Modello 3D di S Visual"
+    cap: "La mia presentazione alla residenza Scalable HCI a Shenzhen.",
+    prog: "Sulla residenza", close: "Chiudi", made: "Realizzato con l'aiuto di Claude (IA).", sk_credit: "Modello 3D di S Visual"
   });
   Object.assign(T.de, {
+    cred: "<a href=\"https://www.science.org/doi/10.1126/scirobotics.adp7854\" target=\"_blank\" rel=\"noopener\">Erstautor in <em>Science Robotics</em></a>",
     w1_d: "Ich habe einen humanoiden Unitree G1 in Betrieb genommen und darauf NVIDIAs KI-Modell GR00T eingesetzt, um wissenschaftliche Experimente zu automatisieren.",
     yt: "Auf YouTube ansehen", w1_art: "Artikel zum Living Lab",
     w2_t: "Wofür sollten wir humanoide Roboter einsetzen?",
-    w2_d: "Als MIT SERC Scholar (Social and Ethical Responsibilities of Computing: soziale und ethische Verantwortung der Informatik) habe ich das KI-Modell unseres Roboters mit dem Rahmenwerk aus " + AX + " geprüft und einen Stakeholder-Rollenspiel-Workshop geleitet. Die Ergebnisse habe ich als Poster beim MIT SERC Symposium vorgestellt.",
-    fa: "Erstautor", ca: "Mitautor", sk_fb: "3D-Scan des Headphone (1)", w4_hint: "Ziehe am 3D-Modell, um es zu drehen.",
+    w2_d: "Als <a href=\"https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/serc-scholars-program/\" target=\"_blank\" rel=\"noopener\">MIT SERC Scholar</a> habe ich das KI-Modell unseres Roboters mit dem Rahmenwerk aus " + AX + " geprüft.",
+    fa: "Erstautor", ca: "Mitautor", sk_fb: "3D-Scan des Headphone (1)",
     w7_t: "Pop-up-Mikroroboter schneller bauen", w7_d: "Designregeln für Pop-up-MEMS-Bauteile, die die Laminierzeit von 3 Stunden auf 10 Minuten verkürzen.",
     w6_d: "Am Labor für intelligente Systeme der EPFL habe ich an insekteninspirierter Selbstaufrichtung für Starrflügeldrohnen gearbeitet.",
     h_talks: "Vorträge, Lehre und mehr", sound: "▶ mit Ton",
     t3: "Publikumspreis bei einem Hardware-Hackathon in Shenzhen",
-    cap: "Mein Pitch während der Scalable-HCI-Residency in Shenzhen. Tippe auf das Video, um es mit Ton abzuspielen.",
-    prog: "Über die Residency", close: "Schließen", sk_credit: "3D-Modell von S Visual"
+    cap: "Mein Pitch bei der Scalable-HCI-Residency in Shenzhen.",
+    prog: "Über die Residency", close: "Schließen", made: "Mit Hilfe von Claude (KI) erstellt.", sk_credit: "3D-Modell von S Visual"
   });
 
   // English is the text already in the page; capture it once.
@@ -594,8 +604,18 @@ footer {
     });
     try { localStorage.setItem('lang', lang); } catch (e) {}
   }
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.langs button').forEach(function (b) {
-    b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+    b.addEventListener('click', function () {
+      var lang = b.getAttribute('data-lang');
+      if (lang === document.documentElement.lang) return;
+      if (reduceMotion) { setLang(lang); return; }
+      document.body.classList.add('fading');
+      setTimeout(function () {
+        setLang(lang);
+        requestAnimationFrame(function () { document.body.classList.remove('fading'); });
+      }, 180);
+    });
   });
 
   var initial = 'en';
@@ -618,10 +638,19 @@ footer {
       if (a.getAttribute('data-nav') === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
-  function fromHash() { show((location.hash || '#home').slice(1)); }
-  document.querySelectorAll('[data-nav]').forEach(function (a) {
-    a.addEventListener('click', function () { show(a.getAttribute('data-nav')); window.scrollTo(0, 0); });
-  });
+  function fromHash() { var v = (location.hash || '#home').slice(1); if (current === null) { show(v); current = v; } else go(v); }
+  var current = null;
+  function go(view) {
+    if (VIEWS.indexOf(view) < 0) view = 'home';
+    if (view === current) return;
+    if (reduceMotion || current === null) { show(view); current = view; return; }
+    document.body.classList.add('leaving');
+    setTimeout(function () {
+      show(view); current = view; window.scrollTo(0, 0);
+      document.body.classList.remove('leaving');
+    }, 150);
+  }
+  // Nav links change the URL hash; the hashchange listener below does the switch.
 
   // Media: YouTube and video tiles open in a lightbox; the talk preview loops silently while visible.
   var lb = document.getElementById('lightbox'), frame = document.getElementById('lb-frame');
