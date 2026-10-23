@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Francisco Ramirez Serrano">
-<meta property="og:description" content="Robotics engineer at MIT CSAIL: microrobots, humanoids and responsible AI.">
-<meta property="og:image" content="img/francisco.jpg">
-<link rel="icon" href="img/francisco.jpg">
+<meta property="og:description" content="PhD student at MIT. My work, and the things I'm curious about.">
+<meta property="og:image" content="https://franciscoramirezserrano.com/img/portrait.jpg">
+<link rel="icon" href="img/portrait.jpg">
 <title>Francisco Ramirez Serrano</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Francisco Ramirez Serrano: robotics engineer at MIT CSAIL. Microrobots, humanoids, responsible AI, and notes on the things I care about.">
+<meta name="description" content="Francisco Ramirez Serrano: PhD student at MIT. My work, and the things I'm curious about.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one left-aligned reading column (~44rem) with a mono date rail on entry lists; safety-yellow used only as a marker highlight. */
+/* Layout: one calm reading column; header with name, three views (home, about, writing) and a five-language switch. Yellow only as a marker. */
 :root {
   --bg: #f6f7f8;
   --surface: #ffffff;
@@ -28,7 +28,8 @@
   --font-display: "Young Serif", Georgia, "Times New Roman", serif;
   --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --col: 44rem;
+  --col: 46rem;
+  --brill: #1ba39c;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -44,20 +45,13 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 .wrap {
-  max-width: calc(var(--col) + 2 * 24px);
-  margin: 0 auto;
+  max-width: calc(var(--col) + 48px); margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
@@ -67,112 +61,157 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Header */
 .top {
-  display: flex; flex-wrap: wrap; gap: 8px 24px;
-  align-items: baseline; justify-content: space-between;
-  padding-block: 28px 0;
+  display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between;
+  padding-block: 24px 0;
 }
-.wordmark { font-family: var(--font-display); font-size: 1.125rem; color: var(--ink); text-decoration: none; }
 .top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .top nav a {
-  font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em;
-  color: var(--muted); text-decoration: none;
+  font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); text-decoration: none;
+  padding-block: 2px; border-bottom: 2px solid transparent;
 }
 .top nav a:hover { color: var(--ink); }
+.top nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--marker); }
+.langs { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+.langs button {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em;
+  border: 0; background: transparent; color: var(--muted); cursor: pointer;
+  padding: 5px 7px; border-radius: 4px; display: inline-flex; align-items: center; gap: 5px;
+}
+.flag { width: 16px; height: 11px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
+@media (max-width: 420px) { .langs button span { display: none; } .langs button { padding: 6px 7px; } .flag { width: 20px; height: 14px; } }
+.langs button:hover { color: var(--ink); }
+.langs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 
-/* Hero */
-.hero {
-  display: grid; grid-template-columns: 9.5rem 1fr; gap: 28px;
-  align-items: center; padding-block: 56px 40px;
+/* Views */
+[data-view] { padding-block: 8px 24px; }
+
+/* Intro */
+.intro {
+  display: grid; grid-template-columns: 13rem 1fr; gap: 32px; align-items: center;
+  padding-block: 44px 36px;
 }
-.hero img {
-  width: 100%; max-width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
-  border-radius: 50%; background: var(--surface);
-}
-.hero h1 {
+.intro img { width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
+.intro-text { min-width: 0; }
+h1 {
   font-family: var(--font-display); font-weight: 400;
-  font-size: clamp(2rem, 1.4rem + 2.6vw, 2.9rem); line-height: 1.1;
-  margin: 0 0 14px; text-wrap: balance;
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.5rem); line-height: 1.1; margin: 0 0 6px; text-wrap: balance;
 }
-.hero p { margin: 0; max-width: 34rem; color: var(--ink); font-size: 1.125rem; }
-mark {
-  background: linear-gradient(transparent 58%, var(--hl) 58%);
-  color: inherit; padding: 0 2px;
-}
-.facts {
-  display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; padding: 0; list-style: none;
-  font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted);
+.role { margin: 0 0 12px; color: var(--muted); }
+.welcome { margin: 0 0 14px; max-width: 36rem; font-size: 1.125rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 0; padding: 0; list-style: none; }
+.chips li {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink);
+  padding: 3px 9px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface);
 }
 @media (max-width: 560px) {
-  .hero { grid-template-columns: 1fr; gap: 20px; padding-block: 36px 28px; }
-  .hero img { width: 7.5rem; }
+  .intro { grid-template-columns: 1fr; gap: 18px; padding-block: 32px 28px; }
+  .intro img { width: min(16rem, 100%); }
 }
+
+.contact {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px;
+  padding: 14px 18px; margin-bottom: 8px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+}
+.contact .lbl { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.contact .addr { font-family: var(--font-mono); font-size: 0.9375rem; }
+@media (max-width: 560px) { .contact .addr { font-size: 0.8125rem; } }
 
 /* Sections */
-section { padding-block: 40px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
-.label {
-  font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--muted); margin: 0 0 18px;
-}
-h2 {
-  font-family: var(--font-display); font-weight: 400; font-size: 1.75rem; line-height: 1.2;
-  margin: 0 0 20px; text-wrap: balance;
-}
-.prose p { margin: 0 0 1em; max-width: 65ch; }
-.prose p:last-child { margin-bottom: 0; }
+section { padding-block: 36px; border-top: 1px solid var(--rule); }
+section:first-of-type { border-top: 0; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line-height: 1.2; margin: 0 0 22px; text-wrap: balance; }
 
-/* Entry lists: date rail + body */
-.entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
-.entry { display: grid; grid-template-columns: 6.5rem 1fr; gap: 4px 20px; }
-.when {
-  font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted);
-  padding-top: 4px; font-variant-numeric: tabular-nums;
-}
+.entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+.entry { display: grid; grid-template-columns: 6.25rem 1fr; gap: 2px 20px; }
+.when { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
 .entry-body { min-width: 0; }
-.entry h3 { font-size: 1.0625rem; font-weight: 700; margin: 0 0 4px; line-height: 1.35; }
-.entry p { margin: 0; color: var(--muted); max-width: 62ch; }
-.entry .where { color: var(--ink); }
-.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; font-size: 0.9375rem; }
+.entry h3 { font-size: 1.0625rem; font-weight: 700; margin: 0 0 3px; line-height: 1.35; }
+.entry p { margin: 0; color: var(--muted); max-width: 60ch; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 5px; font-size: 0.9375rem; }
 .links a::after { content: " \2197"; font-size: 0.8em; }
+.compact { gap: 10px; }
+.compact .entry h3 { font-weight: 400; margin: 0; }
 @media (max-width: 560px) {
   .entry { grid-template-columns: 1fr; }
   .when { padding-top: 0; }
 }
 
-.subhead { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); margin: 36px 0 16px; letter-spacing: 0.04em; }
-.compact { gap: 12px; }
-.compact .entry h3 { font-weight: 400; margin: 0; }
+.prose p { margin: 0 0 1em; max-width: 64ch; }
+.prose p:last-child { margin-bottom: 0; }
+.page-head { padding-block: 40px 4px; }
+.page-head h2 { font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.3rem); margin-bottom: 10px; }
+.page-head p { margin: 0; color: var(--muted); }
 
-/* Writing */
 .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.post {
-  display: grid; gap: 6px; padding: 20px 22px;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
-}
+.post { display: grid; gap: 6px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; }
 .post h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; line-height: 1.25; margin: 0; text-wrap: balance; }
 .post p { margin: 0; color: var(--muted); max-width: 60ch; }
 .status {
   justify-self: start; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--marker-ink); background: var(--marker);
-  padding: 2px 8px; border-radius: 3px;
+  text-transform: uppercase; color: var(--marker-ink); background: var(--marker); padding: 2px 8px; border-radius: 3px;
 }
 
-/* Contact */
-.contact-row { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 18px; }
-.email {
-  font-family: var(--font-mono); font-size: 0.9375rem; padding: 8px 12px;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
-  user-select: all; overflow-wrap: anywhere; min-width: 0;
+.brill { display: inline-block; width: 1.75em; height: 1.75em; margin: -4px -4px -4px 6px; flex: none; }
+.brill svg { display: block; width: 100%; height: 100%; }
+.chips li { display: inline-flex; align-items: center; }
+
+/* Work entries with media */
+.works { list-style: none; margin: 0; padding: 0; display: grid; gap: 34px; }
+.work { display: grid; grid-template-columns: 15.5rem 1fr; gap: 22px; align-items: start; }
+.work-body { min-width: 0; }
+.work .when { display: block; padding: 0 0 2px; }
+.work h3 { font-size: 1.0625rem; font-weight: 700; margin: 0 0 4px; line-height: 1.35; }
+.work p { margin: 0; color: var(--muted); max-width: 60ch; }
+.work p a { color: var(--link); }
+.note { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+@media (max-width: 640px) { .work { grid-template-columns: 1fr; gap: 12px; } }
+
+.media {
+  position: relative; display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9;
+  border-radius: 8px; overflow: hidden; border: 1px solid var(--rule); background: var(--surface);
+  padding: 0; margin: 0; font: inherit; color: inherit;
 }
-button.copy {
-  font: inherit; font-size: 0.875rem; cursor: pointer;
-  padding: 8px 14px; border-radius: 4px; border: 1px solid var(--ink);
-  background: var(--ink); color: var(--bg);
+button.media { cursor: pointer; }
+.media img, .media video, .media iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+.media.fig { background: #fff; }
+.media.fig img { object-fit: contain; padding: 6px; }
+.media.duo { display: grid; grid-template-columns: 1fr 1fr; }
+.media.duo img { position: static; height: 100%; }
+.media .fallback {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 12px; text-align: center;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
 }
-button.copy:hover { opacity: 0.88; }
-.contact-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 16px; }
+.media .play {
+  position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%;
+  background: rgba(15, 24, 32, .72); box-shadow: 0 2px 10px rgba(0,0,0,.3);
+  transition: transform .18s ease, background-color .18s ease;
+}
+.media .play::after {
+  content: ""; position: absolute; left: 19px; top: 15px;
+  border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff;
+}
+.media:hover .play, .media:focus-visible .play { transform: scale(1.1); background: rgba(15, 24, 32, .88); }
+.media img.thumb { transition: transform .4s ease; }
+.media:hover img.thumb { transform: scale(1.04); }
+.media .tag {
+  position: absolute; left: 8px; bottom: 8px; padding: 2px 7px; border-radius: 4px;
+  font-family: var(--font-mono); font-size: 0.6875rem; color: #fff; background: rgba(15, 24, 32, .72);
+}
+@media (prefers-reduced-motion: reduce) { .media .play, .media img.thumb { transition: none; } }
+
+/* Lightbox */
+dialog.lb { border: 0; padding: 0; background: transparent; width: min(960px, 92vw); max-width: 92vw; }
+dialog.lb::backdrop { background: rgba(8, 12, 16, .82); }
+.lb-frame { position: relative; aspect-ratio: 16 / 9; width: 100%; background: #000; border-radius: 8px; overflow: hidden; }
+.lb-frame iframe, .lb-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.lb-close {
+  display: block; margin: 0 0 10px auto; font-family: var(--font-mono); font-size: 0.8125rem; cursor: pointer;
+  color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.5); border-radius: 4px; padding: 5px 10px;
+}
 
 footer {
-  border-top: 1px solid var(--rule); padding-block: 28px 40px;
+  border-top: 1px solid var(--rule); padding-block: 24px 40px;
   font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
 }
 </style>
@@ -181,198 +220,440 @@ footer {
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="wordmark" href="#top" id="top">Francisco Ramirez Serrano</a>
-    <nav aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#talks">Talks &amp; teaching</a>
-      <a href="#writing">Writing</a>
-      <a href="#contact">Contact</a>
+    <nav aria-label="Pages">
+      <a href="#home" data-nav="home" data-i18n="nav_home">Home</a>
+      <a href="#about" data-nav="about" data-i18n="nav_about">About me</a>
+      <a href="#writing" data-nav="writing" data-i18n="nav_writing">Writing</a>
     </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" id="lang-en" data-lang="en" lang="en" title="English"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><path d="M0,0v30h60v-30z" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#uk)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg><span>EN</span></button>
+      <button type="button" id="lang-es" data-lang="es" lang="es" title="Español"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#AA151B"/><rect y=".5" width="3" height="1" fill="#F1BF00"/></svg><span>ES</span></button>
+      <button type="button" id="lang-fr" data-lang="fr" lang="fr" title="Français"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg><span>FR</span></button>
+      <button type="button" id="lang-it" data-lang="it" lang="it" title="Italiano"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE2B37"/></svg><span>IT</span></button>
+      <button type="button" id="lang-de" data-lang="de" lang="de" title="Deutsch"><svg class="flag" viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg><span>DE</span></button>
+    </div>
   </header>
 
-  <div class="hero">
-    <img src="img/francisco.jpg" alt="Francisco smiling, holding a small folded robot between his fingers" width="480" height="480">
-    <div>
-      <h1>I build robots, test them, and think about how they should share our world.</h1>
-      <p>Robotics engineer and PhD student at MIT CSAIL. I've worked on robots from <mark>insect-scale jumpers</mark> to <mark>humanoids</mark>, and on the ethics of putting them in front of people.</p>
-      <ul class="facts">
-        <li>Boston, MA</li>
-        <li>Spanish &amp; Swiss</li>
-        <li>5 languages</li>
-        <li>Wingfoiler</li>
+  <!-- HOME -->
+  <main data-view="home">
+    <div class="intro">
+      <img src="img/portrait.jpg" alt="Francisco smiling on a Cambridge street lined with yellow autumn trees" width="720" height="900">
+      <div class="intro-text">
+        <h1>Francisco Ramirez Serrano</h1>
+        <p class="role" data-i18n="role">PhD student at MIT, Electrical Engineering and Computer Science</p>
+        <p class="welcome" data-i18n="welcome">Welcome! This is where I share my work and the things I'm curious about.</p>
+        <ul class="chips">
+          <li data-i18n="i_robotics">Robotics</li>
+          <li data-i18n="i_teach">Teaching</li>
+          <li data-i18n="i_philo">Philosophy</li>
+          <li data-i18n="i_water">Wingfoiling &amp; surfing</li>
+          <li data-i18n="i_cali">Calisthenics</li>
+          <li><span data-i18n="i_games">Board games</span><span class="brill" role="img" title="Brilliant move" aria-label="brilliant move"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="54" r="45" fill="#0f7a74"/><circle cx="50" cy="50" r="45" fill="#21aca5"/><g fill="#12857e"><rect x="28" y="24" width="17" height="38" rx="4"/><rect x="28" y="68" width="17" height="13" rx="3"/><rect x="55" y="24" width="17" height="38" rx="4"/><rect x="55" y="68" width="17" height="13" rx="3"/></g><g fill="#fff"><rect x="28" y="20" width="17" height="38" rx="4"/><rect x="28" y="64" width="17" height="13" rx="3"/><rect x="55" y="20" width="17" height="38" rx="4"/><rect x="55" y="64" width="17" height="13" rx="3"/></g></svg></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="contact">
+      <span class="lbl" data-i18n="contact">Contact</span>
+      <span class="addr">FrRamirezSerrano (at) gmail (dot) com</span>
+      <a href="Francisco_Ramirez_Serrano_CV.pdf" target="_blank" rel="noopener" data-i18n="cv">CV (PDF)</a>
+    </div>
+
+    <section>
+      <h2 data-i18n="h_work">Selected work</h2>
+      <ul class="works">
+        <li class="work">
+          <button class="media" type="button" data-yt="k-Jc3AeUnec" aria-label="Play video: Embodied AI at MIT CSAIL’s Living Lab"><img class="thumb" src="https://i.ytimg.com/vi/k-Jc3AeUnec/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="tag">YouTube</span></button>
+          <div class="work-body">
+            <span class="when" data-i18n="w1_when">2025 – now</span>
+            <h3 data-i18n="w1_t">Humanoid robots at MIT CSAIL</h3>
+            <p data-i18n="w1_d">I brought up a Unitree G1 humanoid and deployed NVIDIA's GR00T AI model on it to automate scientific experiments.</p>
+            <div class="links">
+              <a href="https://www.youtube.com/watch?v=k-Jc3AeUnec" target="_blank" rel="noopener" data-i18n="yt">Watch on YouTube</a>
+              <a href="https://cap.csail.mit.edu/teaching-humanoid-robots-real-world-skills-mit-csails-living-lab" target="_blank" rel="noopener" data-i18n="w1_art">Living Lab article</a>
+            </div>
+          </div>
+        </li>
+        <li class="work">
+          <div class="media duo">
+            <img src="media/serc-flowers.jpg" alt="Our Unitree G1 humanoid holding a bouquet of flowers at a demo" loading="lazy">
+            <img src="media/serc-justice.jpg" alt="Statue of Lady Justice holding scales against a blue sky" loading="lazy">
+          </div>
+          <div class="work-body">
+            <span class="when">2025 – 2026 · MIT SERC Scholar</span>
+            <h3 data-i18n="w2_t">What should we use humanoid robots for?</h3>
+            <p data-i18n="w2_d">As an MIT SERC Scholar (Social and Ethical Responsibilities of Computing), I audited our robot's AI model using the framework from <a href="https://arxiv.org/abs/2404.16244" target="_blank" rel="noopener">The Ethics of Advanced AI Assistants</a> (Gabriel et al., 2024) and ran a stakeholder role-play workshop. I presented the results as a poster at the MIT SERC Symposium.</p>
+          </div>
+        </li>
+        <li class="work">
+          <button class="media" type="button" data-yt="SlGsq0yKnsk" aria-label="Play video: springtail-inspired jumping microrobot"><img class="thumb" src="https://i.ytimg.com/vi/SlGsq0yKnsk/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="tag">YouTube</span></button>
+          <div class="work-body">
+            <span class="when">2025</span>
+            <h3 data-i18n="w3_t">An insect-sized jumping robot</h3>
+            <p data-i18n="w3_d">At the Harvard Microrobotics Lab I led a walking-jumping microrobot inspired by springtails, from first design to publication.</p>
+            <div class="links">
+              <a href="https://www.science.org/doi/10.1126/scirobotics.adp7854" target="_blank" rel="noopener">Science Robotics, 2025</a>
+              <span class="note" data-i18n="fa">First author</span>
+            </div>
+          </div>
+        </li>
+        <li class="work">
+          <div class="media sk">
+            <span class="fallback" data-i18n="sk_fb">3D scan of the Headphone (1)</span>
+            <iframe title="3D scan of the Nothing Headphone (1)" loading="lazy" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen src="https://sketchfab.com/models/b49b147ecb914f7fb645712f3f479537/embed?autostart=1&amp;autospin=0.3&amp;preload=1&amp;ui_theme=dark&amp;dnt=1"></iframe>
+          </div>
+          <div class="work-body">
+            <span class="when">2024</span>
+            <h3 data-i18n="w4_t">Ergonomics testing at Nothing</h3>
+            <p data-i18n="w4_d">In London I developed new test methods for the Headphone (1) and turned force measurements into design recommendations.</p>
+            <div class="links">
+              <a href="https://us.nothing.tech/products/headphone-1" target="_blank" rel="noopener" data-i18n="w4_l">The product</a>
+              <span class="note" data-i18n="w4_hint">Drag the 3D scan to spin it.</span>
+            </div>
+          </div>
+        </li>
+        <li class="work">
+          <div class="media fig">
+            <img src="media/popup-mems.png" alt="Figure comparing accelerated manufacturing (10-minute lamination) with the legacy workflow (3-hour lamination) for pop-up microrobots" loading="lazy">
+          </div>
+          <div class="work-body">
+            <span class="when">2024</span>
+            <h3 data-i18n="w7_t">Building pop-up microrobots faster</h3>
+            <p data-i18n="w7_d">Design rules for pop-up MEMS devices that cut lamination time from 3 hours to 10 minutes.</p>
+            <div class="links">
+              <a href="https://doi.org/10.1002/admt.202301940" target="_blank" rel="noopener">Advanced Materials Technologies, 2024</a>
+              <span class="note" data-i18n="fa">First author</span>
+            </div>
+          </div>
+        </li>
+        <li class="work">
+          <button class="media" type="button" data-yt="15DdVN97A38" aria-label="Play video: self-righting fixed-wing drone"><img class="thumb" src="https://i.ytimg.com/vi/15DdVN97A38/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="tag">YouTube</span></button>
+          <div class="work-body">
+            <span class="when">2020 – 2021</span>
+            <h3 data-i18n="w6_t">Drones that flip themselves upright</h3>
+            <p data-i18n="w6_d">At EPFL's Laboratory of Intelligent Systems I worked on insect-inspired self-righting for fixed-wing drones.</p>
+            <div class="links">
+              <a href="https://ieeexplore.ieee.org/document/9479684" target="_blank" rel="noopener">IEEE Robotics and Automation Letters, 2021</a>
+              <span class="note" data-i18n="ca">Co-author</span>
+            </div>
+          </div>
+        </li>
       </ul>
+    </section>
+
+    <section>
+      <h2 data-i18n="h_talks">Talks, teaching &amp; more</h2>
+      <div class="work" style="margin-bottom: 26px;">
+        <button class="media" type="button" data-video="media/talk.mp4" aria-label="Play my Shenzhen hackathon pitch with sound">
+          <video class="loop" src="media/talk-loop.mp4" poster="media/talk-poster.jpg" muted loop playsinline preload="metadata"></video>
+          <span class="play" aria-hidden="true"></span><span class="tag" data-i18n="sound">▶ with sound</span>
+        </button>
+        <div class="work-body">
+          <span class="when">2025</span>
+          <h3 data-i18n="t3">People's Choice award at a hardware hackathon in Shenzhen</h3>
+          <p data-i18n="cap">My pitch during the Scalable HCI residency in Shenzhen. Tap the video to play it with sound.</p>
+          <div class="links"><a href="https://scalablehci.com/2025/program/" target="_blank" rel="noopener" data-i18n="prog">About the residency</a></div>
+        </div>
+      </div>
+      <ul class="entries compact">
+        <li class="entry"><span class="when">2026</span><div class="entry-body"><h3 data-i18n="t1">Teaching assistant, MIT 6.UAR (two semesters, 30+ students each)</h3></div></li>
+        <li class="entry"><span class="when">2023 – 2025</span><div class="entry-body"><h3 data-i18n="t4">Robotics teaching in Geneva, Hawaii and Lithuania</h3></div></li>
+        <li class="entry"><span class="when">2023</span><div class="entry-body"><h3 data-i18n="t5">Peer reviewer, IEEE Robotics and Automation Letters</h3></div></li>
+        <li class="entry"><span class="when">2022</span><div class="entry-body"><h3 data-i18n="t6">ICRA 2022 workshop, Philadelphia</h3></div></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- ABOUT -->
+  <main data-view="about" hidden>
+    <div class="page-head"><h2 data-i18n="nav_about">About me</h2></div>
+    <section>
+      <div class="prose">
+        <p data-i18n="a1">I've lived in Costa Rica, Senegal, Benin, Italy, Germany, Switzerland, the UK and the US, and I'm Spanish and Swiss. Moving that much made me an empiricist: I don't really believe something until I've tried it myself.</p>
+        <p data-i18n="a2">I studied microengineering at EPFL in Lausanne, with an exchange year at TUM in Munich, and wrote my master's thesis in robotics at Harvard. I stayed on as a research fellow, worked at Nothing in London, and started my PhD at MIT in 2024.</p>
+        <p data-i18n="a3">At MIT I work with humanoid robots and think a lot about how AI should be used around people; I was an MIT SERC Scholar on exactly that. I also teach, guiding students through their first research projects.</p>
+        <p data-i18n="a4">Outside work I'm usually on the water wingfoiling or surfing, playing ping-pong, deep in a game of Dune: Imperium with friends, or reading philosophy and psychology.</p>
+        <p data-i18n="a5">I speak Spanish, English, French, German and Italian.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- WRITING -->
+  <main data-view="writing" hidden>
+    <div class="page-head">
+      <h2 data-i18n="nav_writing">Writing</h2>
+      <p data-i18n="wr_intro">Posts I'm working on.</p>
     </div>
-  </div>
+    <section>
+      <ul class="posts">
+        <li class="post">
+          <span class="status" data-i18n="status">In progress</span>
+          <h3 data-i18n="p1_t">How I have fun</h3>
+          <p data-i18n="p1_d">Everyone secretly wants to jump in the water. On surfing, ping-pong, and being the person who gives everyone else the excuse.</p>
+        </li>
+        <li class="post">
+          <span class="status" data-i18n="status">In progress</span>
+          <h3 data-i18n="p2_t">Reading notes: love, freedom and the self</h3>
+          <p data-i18n="p2_d">What I've taken from Harry Frankfurt's <em>The Reasons of Love</em>, Sartre's <em>Existentialism Is a Humanism</em>, and from Jung, Freud and Adler.</p>
+        </li>
+        <li class="post">
+          <span class="status" data-i18n="status">In progress</span>
+          <h3 data-i18n="p3_t">Robots, AI and the world we're building</h3>
+          <p data-i18n="p3_d">My view on where this is all going, from someone who has deployed a robot AI model and audited it.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
 
-  <section id="about">
-    <p class="label">About</p>
-    <h2>A bit about me</h2>
-    <div class="prose">
-      <p>I've lived in Costa Rica, Senegal, Benin, Italy, Germany, Switzerland, the UK and the US. Moving that much made me an empiricist: I don't really believe something until I've tried it myself.</p>
-      <p>I studied microengineering at EPFL in Lausanne, with an exchange year at TUM in Munich, then wrote my master's thesis in robotics at the Harvard Microrobotics Lab. I stayed on as a research fellow and led a project to build an insect-sized robot that can both walk and jump, inspired by springtails. It became my first-author paper in <em>Science Robotics</em>. After that I worked on the Headphone (1) at Nothing in London, and in 2024 I started my PhD at MIT.</p>
-      <p>At MIT CSAIL I work with humanoid robots: I brought up a Unitree G1 and deployed NVIDIA's GR00T model on it. As an MIT SERC Scholar I also looked at the ethics of putting models like this into real spaces. I teach too, as a TA for 6.UAR, where I advise more than 30 students a term through their first research projects.</p>
-      <p>Outside the lab I'm usually on the water wingfoiling or surfing, playing ping-pong, deep in a game of Dune: Imperium with friends, or reading philosophy and psychology.</p>
-    </div>
-  </section>
+  <dialog class="lb" id="lightbox" aria-label="Video">
+    <button class="lb-close" type="button" id="lb-close" data-i18n="close">Close</button>
+    <div class="lb-frame" id="lb-frame"></div>
+  </dialog>
 
-  <section id="work">
-    <p class="label">Work</p>
-    <h2>Research &amp; engineering</h2>
-    <ul class="entries">
-      <li class="entry">
-        <span class="when">2025 – now</span>
-        <div class="entry-body">
-          <h3>Humanoid robots at the CSAIL Living Lab</h3>
-          <p><span class="where">MIT CSAIL.</span> Brought up a Unitree G1 humanoid with dexterous hands and deployed NVIDIA's GR00T vision-language-action model on it: teleoperation, cameras, networking and a test rig for repeatable trials.</p>
-          <div class="links"><a href="https://cap.csail.mit.edu/teaching-humanoid-robots-real-world-skills-mit-csails-living-lab" target="_blank" rel="noopener">Video interview (Embodied AI)</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2026</span>
-        <div class="entry-body">
-          <h3>Auditing a robot foundation model</h3>
-          <p><span class="where">MIT SERC.</span> Evaluated a deployed GR00T model against an AI-ethics framework through a stakeholder workshop and a deployment audit. Presented as a poster at the MIT SERC Symposium.</p>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2021 – 2025</span>
-        <div class="entry-body">
-          <h3>A springtail-inspired walking-jumping microrobot</h3>
-          <p><span class="where">Harvard Microrobotics Lab.</span> Led the project from concept through design, fabrication and high-speed testing to publication.</p>
-          <div class="links"><a href="https://www.science.org/doi/10.1126/scirobotics.adp7854" target="_blank" rel="noopener">Science Robotics, 2025</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2024</span>
-        <div class="entry-body">
-          <h3>Rapid manufacturing of pop-up MEMS devices</h3>
-          <p><span class="where">Harvard Microrobotics Lab.</span> Design considerations for building millimeter-scale mechanisms quickly.</p>
-          <div class="links"><a href="https://doi.org/10.1002/admt.202301940" target="_blank" rel="noopener">Advanced Materials Technologies, 2024</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2024</span>
-        <div class="entry-body">
-          <h3>Ergonomics testing for the Headphone (1)</h3>
-          <p><span class="where">Nothing, London.</span> Developed new test methods and turned force measurements into design and manufacturing recommendations.</p>
-          <div class="links"><a href="https://us.nothing.tech/products/headphone-1" target="_blank" rel="noopener">The product</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2025</span>
-        <div class="entry-body">
-          <h3>Hardware hackathon win in Shenzhen</h3>
-          <p><span class="where">Scalable HCI residency.</span> Building, factory visits and a close look at how products are made at scale.</p>
-          <div class="links"><a href="https://scalablehci.com/2025/program/" target="_blank" rel="noopener">Program</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2022 – 2023</span>
-        <div class="entry-body">
-          <h3>Millimeter-scale surgical tools</h3>
-          <p><span class="where">Project 1985, Harvard.</span> Designed and prototyped hydraulically actuated tools for a surgical-robotics start-up launched from the lab.</p>
-          <div class="links"><a href="https://otd.harvard.edu/news/harvard-and-1955-capital-collaborate-to-launch-surgical-robotics-startup/" target="_blank" rel="noopener">About the start-up</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2021</span>
-        <div class="entry-body">
-          <h3>Self-righting drones and propeller test benches</h3>
-          <p><span class="where">EPFL &amp; Flybotix.</span> Insect-inspired self-righting for fixed-wing drones, and a co-axial propeller test bench that cut bench costs by 75%.</p>
-          <div class="links"><a href="https://ieeexplore.ieee.org/document/9479684" target="_blank" rel="noopener">IEEE RA-L, 2021</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <span class="when">2024</span>
-        <div class="entry-body">
-          <h3>How to Make (Almost) Anything</h3>
-          <p><span class="where">MIT Center for Bits and Atoms.</span> A weekly build log from Neil Gershenfeld's digital fabrication class.</p>
-          <div class="links"><a href="https://fab.cba.mit.edu/classes/863.24/people/FranciscoRamirezSerrano/" target="_blank" rel="noopener">My class pages</a></div>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <section id="talks">
-    <p class="label">Talks &amp; teaching</p>
-    <h2>Presenting and teaching</h2>
-    <ul class="entries compact">
-      <li class="entry"><span class="when">2026</span><div class="entry-body"><h3>Video interview, <a href="https://cap.csail.mit.edu/teaching-humanoid-robots-real-world-skills-mit-csails-living-lab" target="_blank" rel="noopener">Embodied AI at MIT CSAIL's Living Lab</a></h3></div></li>
-      <li class="entry"><span class="when">2026</span><div class="entry-body"><h3>Poster, MIT SERC Symposium</h3></div></li>
-      <li class="entry"><span class="when">2025</span><div class="entry-body"><h3>Poster, Scalable HCI Symposium, Shenzhen</h3></div></li>
-      <li class="entry"><span class="when">2023</span><div class="entry-body"><h3>Geneva Science and Diplomacy Anticipation Summit</h3></div></li>
-      <li class="entry"><span class="when">2022</span><div class="entry-body"><h3><a href="https://impulsivemuri.com/workshop2022.html" target="_blank" rel="noopener">ICRA 2022 workshop on impulsive systems</a>, Philadelphia</h3></div></li>
-    </ul>
-    <p class="subhead">Teaching</p>
-    <ul class="entries compact">
-      <li class="entry"><span class="when">2026</span><div class="entry-body"><h3>Teaching assistant, MIT 6.UAR Preparation for Undergraduate Research (two semesters)</h3></div></li>
-      <li class="entry"><span class="when">2025</span><div class="entry-body"><h3>AI and manufacturing workshop for children, Lithuania</h3></div></li>
-      <li class="entry"><span class="when">2024</span><div class="entry-body"><h3>Robotics tutor, TechLabs Geneva</h3></div></li>
-      <li class="entry"><span class="when">2023</span><div class="entry-body"><h3>Guest robotics teacher, 'Iolani School, Hawaii</h3></div></li>
-      <li class="entry"><span class="when">2023</span><div class="entry-body"><h3>Peer reviewer, IEEE Robotics and Automation Letters</h3></div></li>
-    </ul>
-  </section>
-
-  <section id="writing">
-    <p class="label">Writing</p>
-    <h2>Things I care about</h2>
-    <ul class="posts">
-      <li class="post">
-        <span class="status">In progress</span>
-        <h3>How I have fun</h3>
-        <p>Everyone secretly wants to jump in the water. On surfing, ping-pong, and being the person who gives everyone else the excuse.</p>
-      </li>
-      <li class="post">
-        <span class="status">In progress</span>
-        <h3>Reading notes: love, freedom and the self</h3>
-        <p>What I've taken from Harry Frankfurt's <em>The Reasons of Love</em>, Sartre's <em>Existentialism Is a Humanism</em>, and my detour through Jung, Freud and Adler.</p>
-      </li>
-      <li class="post">
-        <span class="status">In progress</span>
-        <h3>Robots, AI and the world we're building</h3>
-        <p>My view on where this is all going, from someone who has deployed a robot foundation model and audited it.</p>
-      </li>
-    </ul>
-  </section>
-
-  <section id="contact">
-    <p class="label">Contact</p>
-    <h2>Say hello</h2>
-    <div class="prose">
-      <p>I'm open to conversations about roles in robot evaluation, safety, deployment and technical diligence, especially in San Diego. I'm also always happy to talk philosophy, board games or where the wind is good this weekend.</p>
-    </div>
-    <div class="contact-row">
-      <span class="email" id="email">FrRamirezSerrano@gmail.com</span>
-      <button class="copy" id="copy-email" type="button">Copy email</button>
-    </div>
-    <div class="contact-links">
-      <a href="https://www.linkedin.com/in/francisco-ramirez-serrano-41aa8a249" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="Francisco_Ramirez_Serrano_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
-    </div>
-  </section>
-
-  <footer>© 2026 Francisco Ramirez Serrano · Boston, MA</footer>
+  <footer>© 2026 Francisco Ramirez Serrano</footer>
 </div>
 
 <script>
 (function () {
-  var btn = document.getElementById('copy-email');
-  var email = document.getElementById('email');
-  btn.addEventListener('click', function () {
-    var text = email.textContent.trim();
-    function selectIt() {
-      var r = document.createRange(); r.selectNodeContents(email);
-      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-      btn.textContent = 'Selected, press Ctrl/Cmd+C';
+  var T = {
+    es: {
+      nav_home: "Inicio", nav_about: "Sobre mí", nav_writing: "Escritos",
+      role: "Estudiante de doctorado en el MIT, Ingeniería Eléctrica e Informática",
+      welcome: "¡Bienvenido! Aquí comparto mi trabajo y las cosas que me despiertan curiosidad.",
+      i_robotics: "Robótica", i_teach: "Docencia", i_philo: "Filosofía", i_water: "Wingfoil y surf", i_games: "Juegos de mesa", i_cali: "Calistenia",
+      contact: "Contacto", cv: "CV (PDF)",
+      h_work: "Trabajo destacado",
+      w1_when: "2025 – hoy", w1_t: "Robots humanoides en el MIT CSAIL", w1_d: "Puse en marcha un humanoide Unitree G1 y desplegué en él el modelo de IA GR00T de NVIDIA.",
+      w2_t: "Auditoría de un modelo de IA para robots", w2_d: "Evalué el modelo desplegado según un marco de ética de la IA, con un taller con las partes interesadas. Póster en el MIT SERC Symposium.",
+      w3_t: "Un robot saltador del tamaño de un insecto", w3_d: "En el Harvard Microrobotics Lab dirigí un microrrobot que camina y salta, inspirado en los colémbolos, desde el primer diseño hasta su publicación.",
+      w4_t: "Pruebas de ergonomía en Nothing", w4_d: "En Londres desarrollé nuevos métodos de prueba para los Headphone (1) y convertí mediciones de fuerza en recomendaciones de diseño.", w4_l: "El producto",
+      w6_t: "Drones que se enderezan solos", w6_d: "En la EPFL y en Flybotix trabajé en el autoenderezamiento de drones de ala fija inspirado en insectos y construí un banco de pruebas de hélices que redujo los costes un 75 %.",
+      h_talks: "Charlas y docencia",
+      t1: "Profesor asistente, MIT 6.UAR (dos semestres, más de 30 estudiantes cada uno)", t3: "Ganador de un hackathon de hardware y póster, Scalable HCI, Shenzhen", t4: "Clases de robótica en Ginebra, Hawái y Lituania", t5: "Revisor, IEEE Robotics and Automation Letters", t6: "Taller de ICRA 2022, Filadelfia",
+      a1: "He vivido en Costa Rica, Senegal, Benín, Italia, Alemania, Suiza, el Reino Unido y Estados Unidos, y soy español y suizo. Mudarme tanto me hizo empirista: no termino de creerme algo hasta que lo he probado yo mismo.",
+      a2: "Estudié microingeniería en la EPFL de Lausana, con un año de intercambio en la TUM de Múnich, e hice mi tesis de máster en robótica en Harvard. Me quedé allí como investigador, trabajé en Nothing en Londres y empecé el doctorado en el MIT en 2024.",
+      a3: "En el MIT trabajo con robots humanoides y pienso mucho en cómo debería usarse la IA entre personas; fui MIT SERC Scholar precisamente en eso. También doy clases y acompaño a estudiantes en sus primeros proyectos de investigación.",
+      a4: "Fuera del trabajo suelo estar en el agua haciendo wingfoil o surf, jugando al ping-pong, metido en una partida de Dune: Imperium con amigos o leyendo filosofía y psicología.",
+      a5: "Hablo español, inglés, francés, alemán e italiano.",
+      wr_intro: "Textos en los que estoy trabajando.", status: "En curso",
+      p1_t: "Cómo me divierto", p1_d: "En el fondo, todo el mundo quiere tirarse al agua. Sobre el surf, el ping-pong y ser quien les da a los demás la excusa.",
+      p2_t: "Notas de lectura: el amor, la libertad y el yo", p2_d: "Lo que me he llevado de <em>Las razones del amor</em> de Harry Frankfurt, <em>El existencialismo es un humanismo</em> de Sartre, y de Jung, Freud y Adler.",
+      p3_t: "Robots, IA y el mundo que estamos construyendo", p3_d: "Mi visión de hacia dónde va todo esto, de alguien que ha desplegado un modelo de IA en un robot y lo ha auditado."
+    },
+    fr: {
+      nav_home: "Accueil", nav_about: "À propos", nav_writing: "Écrits",
+      role: "Doctorant au MIT, génie électrique et informatique",
+      welcome: "Bienvenue ! Ici, je partage mon travail et les sujets qui éveillent ma curiosité.",
+      i_robotics: "Robotique", i_teach: "Enseignement", i_philo: "Philosophie", i_water: "Wingfoil et surf", i_games: "Jeux de société", i_cali: "Callisthénie",
+      contact: "Contact", cv: "CV (PDF)",
+      h_work: "Travaux choisis",
+      w1_when: "2025 – auj.", w1_t: "Robots humanoïdes au MIT CSAIL", w1_d: "J'ai mis en service un humanoïde Unitree G1 et déployé dessus le modèle d'IA GR00T de NVIDIA.",
+      w2_t: "Audit d'un modèle d'IA pour robots", w2_d: "J'ai évalué le modèle déployé selon un cadre d'éthique de l'IA, avec un atelier réunissant les parties prenantes. Poster au MIT SERC Symposium.",
+      w3_t: "Un robot sauteur de la taille d'un insecte", w3_d: "Au Harvard Microrobotics Lab, j'ai mené un microrobot marcheur et sauteur inspiré des collemboles, de la première conception à la publication.",
+      w4_t: "Tests d'ergonomie chez Nothing", w4_d: "À Londres, j'ai développé de nouvelles méthodes de test pour le Headphone (1) et traduit des mesures de force en recommandations de conception.", w4_l: "Le produit",
+      w6_t: "Des drones qui se redressent seuls", w6_d: "À l'EPFL et chez Flybotix, j'ai travaillé sur le redressement autonome de drones à voilure fixe inspiré des insectes et construit un banc d'essai d'hélices qui a réduit les coûts de 75 %.",
+      h_talks: "Conférences et enseignement",
+      t1: "Assistant d'enseignement, MIT 6.UAR (deux semestres, plus de 30 étudiants chacun)", t3: "Lauréat d'un hackathon matériel et poster, Scalable HCI, Shenzhen", t4: "Enseignement de la robotique à Genève, à Hawaï et en Lituanie", t5: "Relecteur, IEEE Robotics and Automation Letters", t6: "Atelier ICRA 2022, Philadelphie",
+      a1: "J'ai vécu au Costa Rica, au Sénégal, au Bénin, en Italie, en Allemagne, en Suisse, au Royaume-Uni et aux États-Unis, et je suis espagnol et suisse. Avoir autant déménagé a fait de moi un empiriste : je ne crois vraiment une chose qu'après l'avoir essayée moi-même.",
+      a2: "J'ai étudié la microtechnique à l'EPFL à Lausanne, avec une année d'échange à la TUM à Munich, puis j'ai rédigé mon mémoire de master en robotique à Harvard. J'y suis resté comme chercheur, j'ai travaillé chez Nothing à Londres et j'ai commencé mon doctorat au MIT en 2024.",
+      a3: "Au MIT, je travaille avec des robots humanoïdes et je réfléchis beaucoup à la façon dont l'IA devrait être utilisée auprès des gens ; j'ai été MIT SERC Scholar précisément sur ce sujet. J'enseigne aussi, en accompagnant des étudiants dans leurs premiers projets de recherche.",
+      a4: "En dehors du travail, je suis souvent sur l'eau à faire du wingfoil ou du surf, à jouer au ping-pong, plongé dans une partie de Dune: Imperium entre amis, ou en train de lire de la philosophie et de la psychologie.",
+      a5: "Je parle espagnol, anglais, français, allemand et italien.",
+      wr_intro: "Les textes sur lesquels je travaille.", status: "En cours",
+      p1_t: "Comment je m'amuse", p1_d: "Au fond, tout le monde a envie de sauter à l'eau. Sur le surf, le ping-pong, et le fait d'être celui qui donne l'excuse aux autres.",
+      p2_t: "Notes de lecture : l'amour, la liberté et le soi", p2_d: "Ce que je retiens des <em>Raisons de l'amour</em> de Harry Frankfurt, de <em>L'existentialisme est un humanisme</em> de Sartre, et de Jung, Freud et Adler.",
+      p3_t: "Robots, IA et le monde que nous construisons", p3_d: "Mon regard sur la direction que prend tout cela, de la part de quelqu'un qui a déployé un modèle d'IA sur un robot et l'a audité."
+    },
+    it: {
+      nav_home: "Home", nav_about: "Chi sono", nav_writing: "Scritti",
+      role: "Dottorando al MIT, Ingegneria Elettrica e Informatica",
+      welcome: "Benvenuti! Qui condivido il mio lavoro e le cose che mi incuriosiscono.",
+      i_robotics: "Robotica", i_teach: "Insegnamento", i_philo: "Filosofia", i_water: "Wingfoil e surf", i_games: "Giochi da tavolo", i_cali: "Calisthenics",
+      contact: "Contatti", cv: "CV (PDF)",
+      h_work: "Lavori selezionati",
+      w1_when: "2025 – oggi", w1_t: "Robot umanoidi al MIT CSAIL", w1_d: "Ho messo in funzione un umanoide Unitree G1 e vi ho implementato il modello di IA GR00T di NVIDIA.",
+      w2_t: "Audit di un modello di IA per robot", w2_d: "Ho valutato il modello implementato secondo un quadro di etica dell'IA, con un workshop con le parti interessate. Poster al MIT SERC Symposium.",
+      w3_t: "Un robot saltatore grande come un insetto", w3_d: "All'Harvard Microrobotics Lab ho guidato un microrobot che cammina e salta, ispirato ai collemboli, dal primo progetto alla pubblicazione.",
+      w4_t: "Test di ergonomia da Nothing", w4_d: "A Londra ho sviluppato nuovi metodi di test per le Headphone (1) e trasformato misure di forza in raccomandazioni di progettazione.", w4_l: "Il prodotto",
+      w6_t: "Droni che si raddrizzano da soli", w6_d: "All'EPFL e da Flybotix ho lavorato sull'auto-raddrizzamento di droni ad ala fissa ispirato agli insetti e costruito un banco prova per eliche che ha ridotto i costi del 75%.",
+      h_talks: "Interventi e didattica",
+      t1: "Assistente alla didattica, MIT 6.UAR (due semestri, oltre 30 studenti ciascuno)", t3: "Vincitore di un hackathon hardware e poster, Scalable HCI, Shenzhen", t4: "Insegnamento di robotica a Ginevra, alle Hawaii e in Lituania", t5: "Revisore, IEEE Robotics and Automation Letters", t6: "Workshop ICRA 2022, Filadelfia",
+      a1: "Ho vissuto in Costa Rica, Senegal, Benin, Italia, Germania, Svizzera, Regno Unito e Stati Uniti, e sono spagnolo e svizzero. Traslocare così tanto mi ha reso un empirista: non credo davvero a qualcosa finché non l'ho provata di persona.",
+      a2: "Ho studiato microingegneria all'EPFL di Losanna, con un anno di scambio alla TUM di Monaco, e ho scritto la tesi di master in robotica a Harvard. Sono rimasto come ricercatore, ho lavorato da Nothing a Londra e nel 2024 ho iniziato il dottorato al MIT.",
+      a3: "Al MIT lavoro con robot umanoidi e rifletto molto su come l'IA dovrebbe essere usata tra le persone; sono stato MIT SERC Scholar proprio su questo. Insegno anche, seguendo gli studenti nei loro primi progetti di ricerca.",
+      a4: "Fuori dal lavoro di solito sono in acqua a fare wingfoil o surf, a giocare a ping-pong, immerso in una partita a Dune: Imperium con gli amici, oppure a leggere filosofia e psicologia.",
+      a5: "Parlo spagnolo, inglese, francese, tedesco e italiano.",
+      wr_intro: "I testi a cui sto lavorando.", status: "In corso",
+      p1_t: "Come mi diverto", p1_d: "In fondo, tutti vogliono buttarsi in acqua. Sul surf, il ping-pong e sull'essere quello che dà agli altri la scusa.",
+      p2_t: "Appunti di lettura: l'amore, la libertà e il sé", p2_d: "Cosa mi hanno lasciato <em>Le ragioni dell'amore</em> di Harry Frankfurt, <em>L'esistenzialismo è un umanismo</em> di Sartre, e Jung, Freud e Adler.",
+      p3_t: "Robot, IA e il mondo che stiamo costruendo", p3_d: "La mia visione su dove sta andando tutto questo, da parte di chi ha implementato un modello di IA su un robot e lo ha sottoposto ad audit."
+    },
+    de: {
+      nav_home: "Start", nav_about: "Über mich", nav_writing: "Texte",
+      role: "Doktorand am MIT, Elektrotechnik und Informatik",
+      welcome: "Willkommen! Hier teile ich meine Arbeit und die Dinge, die mich neugierig machen.",
+      i_robotics: "Robotik", i_teach: "Unterrichten", i_philo: "Philosophie", i_water: "Wingfoilen & Surfen", i_games: "Brettspiele", i_cali: "Calisthenics",
+      contact: "Kontakt", cv: "Lebenslauf (PDF)",
+      h_work: "Ausgewählte Arbeiten",
+      w1_when: "2025 – heute", w1_t: "Humanoide Roboter am MIT CSAIL", w1_d: "Ich habe einen humanoiden Unitree G1 in Betrieb genommen und darauf NVIDIAs KI-Modell GR00T eingesetzt.",
+      w2_t: "Audit eines KI-Modells für Roboter", w2_d: "Ich habe das eingesetzte Modell anhand eines KI-Ethik-Rahmens bewertet, einschließlich eines Workshops mit Stakeholdern. Poster beim MIT SERC Symposium.",
+      w3_t: "Ein insektengroßer Springroboter", w3_d: "Am Harvard Microrobotics Lab habe ich einen lauf- und sprungfähigen Mikroroboter nach dem Vorbild von Springschwänzen geleitet, vom ersten Entwurf bis zur Veröffentlichung.",
+      w4_t: "Ergonomietests bei Nothing", w4_d: "In London habe ich neue Testmethoden für den Headphone (1) entwickelt und Kraftmessungen in Designempfehlungen übersetzt.", w4_l: "Das Produkt",
+      w6_t: "Drohnen, die sich selbst aufrichten", w6_d: "An der EPFL und bei Flybotix habe ich an insekteninspirierter Selbstaufrichtung für Starrflügeldrohnen gearbeitet und einen Propeller-Prüfstand gebaut, der die Kosten um 75 % senkte.",
+      h_talks: "Vorträge und Lehre",
+      t1: "Lehrassistent, MIT 6.UAR (zwei Semester, je über 30 Studierende)", t3: "Gewinner eines Hardware-Hackathons und Poster, Scalable HCI, Shenzhen", t4: "Robotik-Unterricht in Genf, auf Hawaii und in Litauen", t5: "Gutachter, IEEE Robotics and Automation Letters", t6: "ICRA-2022-Workshop, Philadelphia",
+      a1: "Ich habe in Costa Rica, Senegal, Benin, Italien, Deutschland, der Schweiz, Großbritannien und den USA gelebt und bin Spanier und Schweizer. Die vielen Umzüge haben mich zum Empiriker gemacht: Ich glaube etwas erst wirklich, wenn ich es selbst ausprobiert habe.",
+      a2: "Ich habe Mikrotechnik an der EPFL in Lausanne studiert, mit einem Austauschjahr an der TUM in München, und meine Masterarbeit in Robotik in Harvard geschrieben. Danach blieb ich dort als Research Fellow, arbeitete bei Nothing in London und begann 2024 meine Promotion am MIT.",
+      a3: "Am MIT arbeite ich mit humanoiden Robotern und denke viel darüber nach, wie KI im Umgang mit Menschen eingesetzt werden sollte; genau dazu war ich MIT SERC Scholar. Außerdem unterrichte ich und begleite Studierende bei ihren ersten Forschungsprojekten.",
+      a4: "Außerhalb der Arbeit bin ich meist auf dem Wasser beim Wingfoilen oder Surfen, spiele Tischtennis, stecke mitten in einer Partie Dune: Imperium mit Freunden oder lese Philosophie und Psychologie.",
+      a5: "Ich spreche Spanisch, Englisch, Französisch, Deutsch und Italienisch.",
+      wr_intro: "Texte, an denen ich gerade arbeite.", status: "In Arbeit",
+      p1_t: "Wie ich Spaß habe", p1_d: "Insgeheim will jeder ins Wasser springen. Über Surfen, Tischtennis und darüber, derjenige zu sein, der den anderen den Vorwand liefert.",
+      p2_t: "Lesenotizen: Liebe, Freiheit und das Selbst", p2_d: "Was ich aus Harry Frankfurts <em>Gründe der Liebe</em>, Sartres <em>Der Existentialismus ist ein Humanismus</em> sowie von Jung, Freud und Adler mitgenommen habe.",
+      p3_t: "Roboter, KI und die Welt, die wir bauen", p3_d: "Meine Sicht darauf, wohin das alles führt, von jemandem, der ein KI-Modell auf einem Roboter eingesetzt und geprüft hat."
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () {
-        btn.textContent = 'Copied';
-        setTimeout(function () { btn.textContent = 'Copy email'; }, 1800);
-      }, selectIt);
-    } else { selectIt(); }
+  };
+
+  var AX = '<a href="https://arxiv.org/abs/2404.16244" target="_blank" rel="noopener">The Ethics of Advanced AI Assistants</a> (Gabriel et al., 2024)';
+  Object.assign(T.es, {
+    w1_d: "Puse en marcha un humanoide Unitree G1 y desplegué en él el modelo de IA GR00T de NVIDIA para automatizar experimentos científicos.",
+    yt: "Ver en YouTube", w1_art: "Artículo del Living Lab",
+    w2_t: "¿Para qué deberíamos usar los robots humanoides?",
+    w2_d: "Como MIT SERC Scholar (Social and Ethical Responsibilities of Computing: responsabilidades sociales y éticas de la computación), audité el modelo de IA de nuestro robot con el marco de " + AX + " y organicé un taller de juego de roles con los distintos grupos de interés. Presenté los resultados en un póster en el MIT SERC Symposium.",
+    fa: "Primer autor", ca: "Coautor", sk_fb: "Escaneo 3D de los Headphone (1)", w4_hint: "Arrastra el modelo 3D para girarlo.",
+    w7_t: "Fabricar microrrobots desplegables más rápido", w7_d: "Reglas de diseño para dispositivos MEMS desplegables que reducen el tiempo de laminación de 3 horas a 10 minutos.",
+    w6_d: "En el Laboratorio de Sistemas Inteligentes de la EPFL trabajé en el autoenderezamiento de drones de ala fija inspirado en insectos.",
+    h_talks: "Charlas, docencia y más", sound: "▶ con sonido",
+    t3: "Premio del público en un hackathon de hardware en Shenzhen",
+    cap: "Mi presentación durante la residencia Scalable HCI en Shenzhen. Toca el vídeo para verlo con sonido.",
+    prog: "Sobre la residencia", close: "Cerrar"
   });
+  Object.assign(T.fr, {
+    w1_d: "J'ai mis en service un humanoïde Unitree G1 et déployé dessus le modèle d'IA GR00T de NVIDIA pour automatiser des expériences scientifiques.",
+    yt: "Voir sur YouTube", w1_art: "Article du Living Lab",
+    w2_t: "À quoi devrions-nous utiliser les robots humanoïdes ?",
+    w2_d: "En tant que MIT SERC Scholar (Social and Ethical Responsibilities of Computing : responsabilités sociales et éthiques de l'informatique), j'ai audité le modèle d'IA de notre robot à l'aide du cadre de " + AX + " et animé un atelier de jeu de rôle autour des parties prenantes. J'ai présenté les résultats sous forme de poster au MIT SERC Symposium.",
+    fa: "Premier auteur", ca: "Co-auteur", sk_fb: "Scan 3D du Headphone (1)", w4_hint: "Faites glisser le modèle 3D pour le tourner.",
+    w7_t: "Fabriquer plus vite des microrobots pop-up", w7_d: "Des règles de conception pour dispositifs MEMS pop-up qui réduisent le temps de laminage de 3 heures à 10 minutes.",
+    w6_d: "Au Laboratoire de systèmes intelligents de l'EPFL, j'ai travaillé sur le redressement autonome de drones à voilure fixe inspiré des insectes.",
+    h_talks: "Conférences, enseignement et plus", sound: "▶ avec le son",
+    t3: "Prix du public lors d'un hackathon matériel à Shenzhen",
+    cap: "Ma présentation pendant la résidence Scalable HCI à Shenzhen. Touchez la vidéo pour la lire avec le son.",
+    prog: "À propos de la résidence", close: "Fermer"
+  });
+  Object.assign(T.it, {
+    w1_d: "Ho messo in funzione un umanoide Unitree G1 e vi ho implementato il modello di IA GR00T di NVIDIA per automatizzare esperimenti scientifici.",
+    yt: "Guarda su YouTube", w1_art: "Articolo sul Living Lab",
+    w2_t: "Per cosa dovremmo usare i robot umanoidi?",
+    w2_d: "Come MIT SERC Scholar (Social and Ethical Responsibilities of Computing: responsabilità sociali ed etiche dell'informatica), ho sottoposto ad audit il modello di IA del nostro robot con il quadro di " + AX + " e ho condotto un workshop di role-play sulle parti interessate. Ho presentato i risultati con un poster al MIT SERC Symposium.",
+    fa: "Primo autore", ca: "Coautore", sk_fb: "Scansione 3D delle Headphone (1)", w4_hint: "Trascina il modello 3D per ruotarlo.",
+    w7_t: "Costruire più velocemente microrobot pop-up", w7_d: "Regole di progettazione per dispositivi MEMS pop-up che riducono il tempo di laminazione da 3 ore a 10 minuti.",
+    w6_d: "Al Laboratorio di Sistemi Intelligenti dell'EPFL ho lavorato sull'auto-raddrizzamento di droni ad ala fissa ispirato agli insetti.",
+    h_talks: "Interventi, didattica e altro", sound: "▶ con audio",
+    t3: "Premio del pubblico a un hackathon hardware a Shenzhen",
+    cap: "La mia presentazione durante la residenza Scalable HCI a Shenzhen. Tocca il video per guardarlo con l'audio.",
+    prog: "Sulla residenza", close: "Chiudi"
+  });
+  Object.assign(T.de, {
+    w1_d: "Ich habe einen humanoiden Unitree G1 in Betrieb genommen und darauf NVIDIAs KI-Modell GR00T eingesetzt, um wissenschaftliche Experimente zu automatisieren.",
+    yt: "Auf YouTube ansehen", w1_art: "Artikel zum Living Lab",
+    w2_t: "Wofür sollten wir humanoide Roboter einsetzen?",
+    w2_d: "Als MIT SERC Scholar (Social and Ethical Responsibilities of Computing: soziale und ethische Verantwortung der Informatik) habe ich das KI-Modell unseres Roboters mit dem Rahmenwerk aus " + AX + " geprüft und einen Stakeholder-Rollenspiel-Workshop geleitet. Die Ergebnisse habe ich als Poster beim MIT SERC Symposium vorgestellt.",
+    fa: "Erstautor", ca: "Mitautor", sk_fb: "3D-Scan des Headphone (1)", w4_hint: "Ziehe am 3D-Modell, um es zu drehen.",
+    w7_t: "Pop-up-Mikroroboter schneller bauen", w7_d: "Designregeln für Pop-up-MEMS-Bauteile, die die Laminierzeit von 3 Stunden auf 10 Minuten verkürzen.",
+    w6_d: "Am Labor für intelligente Systeme der EPFL habe ich an insekteninspirierter Selbstaufrichtung für Starrflügeldrohnen gearbeitet.",
+    h_talks: "Vorträge, Lehre und mehr", sound: "▶ mit Ton",
+    t3: "Publikumspreis bei einem Hardware-Hackathon in Shenzhen",
+    cap: "Mein Pitch während der Scalable-HCI-Residency in Shenzhen. Tippe auf das Video, um es mit Ton abzuspielen.",
+    prog: "Über die Residency", close: "Schließen"
+  });
+
+  // English is the text already in the page; capture it once.
+  var nodes = document.querySelectorAll('[data-i18n]');
+  T.en = {};
+  nodes.forEach(function (n) { var k = n.getAttribute('data-i18n'); if (!(k in T.en)) T.en[k] = n.innerHTML; });
+
+  var LANGS = ['en', 'es', 'fr', 'it', 'de'];
+  function setLang(lang) {
+    if (LANGS.indexOf(lang) < 0) lang = 'en';
+    var dict = T[lang];
+    nodes.forEach(function (n) {
+      var k = n.getAttribute('data-i18n');
+      n.innerHTML = (dict[k] !== undefined) ? dict[k] : T.en[k];
+    });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.langs button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+  document.querySelectorAll('.langs button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+  });
+
+  var initial = 'en';
+  try { var saved = localStorage.getItem('lang'); if (saved) initial = saved; else throw 0; }
+  catch (e) {
+    var prefs = (navigator.languages || [navigator.language || 'en']);
+    for (var i = 0; i < prefs.length; i++) {
+      var p = String(prefs[i]).slice(0, 2).toLowerCase();
+      if (LANGS.indexOf(p) >= 0) { initial = p; break; }
+    }
+  }
+  setLang(initial);
+
+  // Views: #home, #about, #writing
+  var VIEWS = ['home', 'about', 'writing'];
+  function show(view) {
+    if (VIEWS.indexOf(view) < 0) view = 'home';
+    document.querySelectorAll('[data-view]').forEach(function (m) { m.hidden = m.getAttribute('data-view') !== view; });
+    document.querySelectorAll('[data-nav]').forEach(function (a) {
+      if (a.getAttribute('data-nav') === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  function fromHash() { show((location.hash || '#home').slice(1)); }
+  document.querySelectorAll('[data-nav]').forEach(function (a) {
+    a.addEventListener('click', function () { show(a.getAttribute('data-nav')); window.scrollTo(0, 0); });
+  });
+
+  // Media: YouTube and video tiles open in a lightbox; the talk preview loops silently while visible.
+  var lb = document.getElementById('lightbox'), frame = document.getElementById('lb-frame');
+  function openLB(node) {
+    frame.innerHTML = ''; frame.appendChild(node);
+    if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+  }
+  function closeLB() { frame.innerHTML = ''; if (lb.close) lb.close(); else lb.removeAttribute('open'); }
+  document.getElementById('lb-close').addEventListener('click', closeLB);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLB(); });
+  lb.addEventListener('close', function () { frame.innerHTML = ''; });
+  document.querySelectorAll('[data-yt]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = b.getAttribute('aria-label');
+      openLB(f);
+    });
+  });
+  document.querySelectorAll('[data-video]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = document.createElement('video');
+      v.src = b.getAttribute('data-video'); v.controls = true; v.autoplay = true; v.playsInline = true;
+      openLB(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+    });
+  });
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loops = document.querySelectorAll('video.loop');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (en.isIntersecting) { var pr = en.target.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else en.target.pause();
+      });
+    }, { threshold: 0.25 });
+    loops.forEach(function (v) { io.observe(v); });
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
 })();
 </script>
 
