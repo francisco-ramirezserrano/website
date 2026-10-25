@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Writing · Francisco Ramirez Serrano</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Same tokens as the homepage; a narrower column for reading. */
+:root {
+  --bg: #f6f7f8; --surface: #ffffff; --ink: #15202b; --muted: #56636f; --rule: #d9dee3;
+  --link: #0b5c7a; --marker: #ffd23f; --marker-ink: #15202b; --hl: #ffd23f;
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --col: 46rem; --read: 38rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1820; --surface: #16222c; --ink: #e8edf1; --muted: #9aa8b4; --rule: #2a3a47;
+    --link: #7cc7e3; --marker: #ffd23f; --marker-ink: #0f1820; --hl: rgba(255, 210, 63, 0.32);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1820; --surface: #16222c; --ink: #e8edf1; --muted: #9aa8b4; --rule: #2a3a47;
+  --link: #7cc7e3; --marker: #ffd23f; --marker-ink: #0f1820; --hl: rgba(255, 210, 63, 0.32);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: calc(var(--col) + 48px); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 2px; }
+
+.top { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding-block: 24px 0; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.top nav a { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); text-decoration: none; padding-block: 2px; border-bottom: 2px solid transparent; }
+.top nav a:hover { color: var(--ink); }
+.top nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--marker); }
+.langs { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+.langs button { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 5px 7px; border-radius: 4px; display: inline-flex; align-items: center; gap: 5px; }
+.langs button:hover { color: var(--ink); }
+.langs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.flag { width: 16px; height: 11px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
+@media (max-width: 420px) { .langs button span { display: none; } .langs button { padding: 6px 7px; } .flag { width: 20px; height: 14px; } }
+
+main { padding-block: 40px 56px; transition: opacity .18s ease; }
+body.fading main, body.fading footer { opacity: 0; }
+footer { transition: opacity .18s ease; }
+.back { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--ink); }
+article { max-width: var(--read); margin-top: 28px; animation: rise .35s ease backwards; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { article { animation: none; } main, footer { transition: none; } }
+.status { display: inline-block; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--marker-ink); background: var(--marker); padding: 2px 8px; border-radius: 3px; margin-bottom: 14px; }
+.note { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); border-left: 3px solid var(--marker); padding: 4px 0 4px 12px; margin: 0 0 24px; }
+
+/* Post body */
+.post-body { font-size: 1.125rem; line-height: 1.75; }
+.post-body h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 1.5rem + 2vw, 2.7rem); line-height: 1.12; margin: 0 0 24px; text-wrap: balance; }
+.post-body h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.55rem; line-height: 1.25; margin: 2em 0 0.6em; text-wrap: balance; }
+.post-body h3 { font-size: 1.125rem; margin: 1.6em 0 0.4em; }
+.post-body p { margin: 0 0 1.1em; }
+.post-body ul, .post-body ol { margin: 0 0 1.1em; padding-left: 1.3em; }
+.post-body li { margin-bottom: 0.35em; }
+.post-body blockquote { margin: 1.4em 0; padding: 2px 0 2px 18px; border-left: 3px solid var(--marker); color: var(--muted); font-style: italic; }
+.post-body img { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 1.4em 0; }
+.post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 2.4em 0; }
+.post-body code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 1px 5px; }
+.post-body pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; }
+.post-body pre code { border: 0; padding: 0; }
+.post-body .soon { color: var(--muted); }
+
+footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <nav aria-label="Pages">
+      <a href="index.html#home" data-home="home" data-i18n="nav_home">Home</a>
+      <a href="index.html#about" data-home="about" data-i18n="nav_about">About me</a>
+      <a href="index.html#writing" data-home="writing" data-i18n="nav_writing" aria-current="page">Writing</a>
+    </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" id="lang-en" data-lang="en" lang="en" title="English"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><path d="M0,0v30h60v-30z" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#uk)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg><span>EN</span></button>
+      <button type="button" id="lang-es" data-lang="es" lang="es" title="Español"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#AA151B"/><rect y=".5" width="3" height="1" fill="#F1BF00"/></svg><span>ES</span></button>
+      <button type="button" id="lang-fr" data-lang="fr" lang="fr" title="Français"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg><span>FR</span></button>
+      <button type="button" id="lang-it" data-lang="it" lang="it" title="Italiano"><svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE2B37"/></svg><span>IT</span></button>
+      <button type="button" id="lang-de" data-lang="de" lang="de" title="Deutsch"><svg class="flag" viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg><span>DE</span></button>
+    </div>
+  </header>
+  <main>
+    <a class="back" href="index.html#writing" data-home="writing">← <span data-i18n="back">All writing</span></a>
+    <article id="article" aria-live="polite"></article>
+  </main>
+  <footer>© 2026 Francisco Ramirez Serrano · <span data-i18n="made">Built with the help of Claude (AI).</span></footer>
+</div>
+<script src="js/marked.min.js"></script>
+<script>
+(function () {
+  var T = {"es": {"nav_home": "Inicio", "nav_about": "Sobre mí", "nav_writing": "Escritos", "p1_t": "Cómo me divierto", "p2_t": "Notas de lectura: el amor, la libertad y el yo", "p3_t": "Robots, IA y el mundo que estamos construyendo", "status": "En curso", "made": "Hecho con la ayuda de Claude (IA).", "back": "Todos los escritos", "soon": "Todavía lo estoy escribiendo. Vuelve pronto.", "only_en": "Por ahora este texto solo está disponible en inglés.", "notfound": "Este texto no existe (todavía)."}, "fr": {"nav_home": "Accueil", "nav_about": "À propos", "nav_writing": "Écrits", "p1_t": "Comment je m'amuse", "p2_t": "Notes de lecture : l'amour, la liberté et le soi", "p3_t": "Robots, IA et le monde que nous construisons", "status": "En cours", "made": "Réalisé avec l'aide de Claude (IA).", "back": "Tous les écrits", "soon": "Je suis encore en train de l'écrire. Revenez bientôt.", "only_en": "Pour l'instant, ce texte n'existe qu'en anglais.", "notfound": "Ce texte n'existe pas (encore)."}, "it": {"nav_home": "Home", "nav_about": "Chi sono", "nav_writing": "Scritti", "p1_t": "Come mi diverto", "p2_t": "Appunti di lettura: l'amore, la libertà e il sé", "p3_t": "Robot, IA e il mondo che stiamo costruendo", "status": "In corso", "made": "Realizzato con l'aiuto di Claude (IA).", "back": "Tutti gli scritti", "soon": "Lo sto ancora scrivendo. Torna presto.", "only_en": "Per ora questo testo è disponibile solo in inglese.", "notfound": "Questo testo non esiste (ancora)."}, "de": {"nav_home": "Start", "nav_about": "Über mich", "nav_writing": "Texte", "p1_t": "Wie ich Spaß habe", "p2_t": "Lesenotizen: Liebe, Freiheit und das Selbst", "p3_t": "Roboter, KI und die Welt, die wir bauen", "status": "In Arbeit", "made": "Mit Hilfe von Claude (KI) erstellt.", "back": "Alle Texte", "soon": "Daran schreibe ich noch. Schau bald wieder vorbei.", "only_en": "Dieser Text ist vorerst nur auf Englisch verfügbar.", "notfound": "Diesen Text gibt es (noch) nicht."}, "en": {"nav_home": "Home", "nav_about": "About me", "nav_writing": "Writing", "p1_t": "How I have fun", "p2_t": "Reading notes: love, freedom and the self", "p3_t": "Robots, AI and the world we're building", "status": "In progress", "made": "Built with the help of Claude (AI).", "back": "All writing", "soon": "I'm still writing this one. Check back soon.", "only_en": "This post is only available in English for now.", "notfound": "This post doesn't exist (yet)."}};
+  var LANGS = ['en', 'es', 'fr', 'it', 'de'];
+  var TITLE_KEYS = { 'how-i-have-fun': 'p1_t', 'reading-notes': 'p2_t', 'robots-ai-world': 'p3_t' };
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var article = document.getElementById('article');
+  var lang = 'en';
+  var slug = '';
+  function readSlug() {
+    var s = (location.hash || '').slice(1);
+    if (!s) { try { s = new URLSearchParams(location.search).get('p') || ''; } catch (e) {} }
+    slug = s.replace(/[^a-z0-9-]/gi, '');
+  }
+  readSlug();
+  window.addEventListener('hashchange', function () { readSlug(); load(); window.scrollTo(0, 0); });
+
+  function t(k) { return (T[lang] && T[lang][k]) || T.en[k] || ''; }
+  function chrome() {
+    document.querySelectorAll('[data-i18n]').forEach(function (n) { n.textContent = t(n.getAttribute('data-i18n')); });
+    document.querySelectorAll('[data-home]').forEach(function (a) {
+      a.href = 'index.html' + (lang === 'en' ? '' : '?lang=' + lang) + '#' + a.getAttribute('data-home');
+    });
+    document.querySelectorAll('.langs button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false'); });
+    document.documentElement.lang = lang;
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+    try {
+      var u = new URL(location.href);
+      if (lang === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) {}
+  }
+  function get(url) {
+    return fetch(url, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); });
+  }
+  function render(md, fellBack) {
+    var draft = /<!--\s*draft/i.test(md);
+    var html = '';
+    if (draft) {
+      var title = TITLE_KEYS[slug] ? t(TITLE_KEYS[slug]) : ((md.match(/^#\s+(.+)$/m) || [])[1] || '');
+      var h = document.createElement('h1'); h.textContent = title;
+      html = '<span class="status">' + t('status') + '</span>' + h.outerHTML + '<p class="soon">' + t('soon') + '</p>';
+    } else {
+      html = (fellBack && lang !== 'en' ? '<p class="note">' + t('only_en') + '</p>' : '') + marked.parse(md);
+    }
+    article.innerHTML = '<div class="post-body">' + html + '</div>';
+    var h1 = article.querySelector('h1');
+    document.title = (h1 ? h1.textContent + ' · ' : '') + 'Francisco Ramirez Serrano';
+  }
+  function load() {
+    if (!slug) { article.innerHTML = '<div class="post-body"><p>' + t('notfound') + '</p></div>'; return Promise.resolve(); }
+    var tryLocal = lang === 'en' ? Promise.reject() : get('posts/' + slug + '.' + lang + '.md');
+    return tryLocal.then(function (md) { render(md, false); }, function () {
+      return get('posts/' + slug + '.md').then(function (md) { render(md, true); }, function () {
+        article.innerHTML = '<div class="post-body"><p>' + t('notfound') + '</p></div>';
+      });
+    });
+  }
+  function setLang(l, animate) {
+    if (LANGS.indexOf(l) < 0) l = 'en';
+    lang = l;
+    if (!animate || reduceMotion) { chrome(); return load(); }
+    document.body.classList.add('fading');
+    setTimeout(function () {
+      chrome();
+      load().then(function () { requestAnimationFrame(function () { document.body.classList.remove('fading'); }); });
+    }, 180);
+  }
+  document.querySelectorAll('.langs button').forEach(function (b) {
+    b.addEventListener('click', function () { if (b.getAttribute('data-lang') !== lang) setLang(b.getAttribute('data-lang'), true); });
+  });
+
+  var initial = 'en', fromLink = null;
+  try { fromLink = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+  try { var saved = localStorage.getItem('lang'); if (saved) initial = saved; else throw 0; }
+  catch (e) {
+    var prefs = navigator.languages || [navigator.language || 'en'];
+    for (var i = 0; i < prefs.length; i++) { var p = String(prefs[i]).slice(0, 2).toLowerCase(); if (LANGS.indexOf(p) >= 0) { initial = p; break; } }
+  }
+  if (fromLink && LANGS.indexOf(fromLink) >= 0) initial = fromLink;
+  setLang(initial, false);
+})();
+</script>
+</body>
+</html>

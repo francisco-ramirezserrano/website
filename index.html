@@ -170,7 +170,14 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line
 .page-head p { margin: 0; color: var(--muted); }
 
 .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.post { display: grid; gap: 6px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; }
+.post-link {
+  display: grid; gap: 6px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+  color: inherit; text-decoration: none; position: relative; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.post-link::after { content: "→"; position: absolute; right: 20px; top: 18px; font-family: var(--font-mono); color: var(--muted); transition: transform .2s ease; }
+.post-link:hover { transform: translateY(-2px); border-color: var(--muted); box-shadow: 0 8px 22px rgba(15, 24, 32, .10); }
+.post-link:hover::after { transform: translateX(3px); color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .post-link, .post-link::after { transition: none; } .post-link:hover { transform: none; } }
 .post h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; line-height: 1.25; margin: 0; text-wrap: balance; }
 .post p { margin: 0; color: var(--muted); max-width: 60ch; }
 .status {
@@ -417,21 +424,21 @@ footer {
     </div>
     <section>
       <ul class="posts">
-        <li class="post">
+        <li class="post"><a class="post-link" href="post.html#how-i-have-fun" data-slug="how-i-have-fun">
           <span class="status" data-i18n="status">In progress</span>
           <h3 data-i18n="p1_t">How I have fun</h3>
           <p data-i18n="p1_d">On surfing, ping-pong, board games and video games, and what they have to do with the beauty of life.</p>
-        </li>
-        <li class="post">
+        </a></li>
+        <li class="post"><a class="post-link" href="post.html#reading-notes" data-slug="reading-notes">
           <span class="status" data-i18n="status">In progress</span>
           <h3 data-i18n="p2_t">Reading notes: love, freedom and the self</h3>
           <p data-i18n="p2_d">What I've taken from Harry Frankfurt's <em>The Reasons of Love</em>, Sartre's <em>Existentialism Is a Humanism</em>, and from Jung, Freud and Adler.</p>
-        </li>
-        <li class="post">
+        </a></li>
+        <li class="post"><a class="post-link" href="post.html#robots-ai-world" data-slug="robots-ai-world">
           <span class="status" data-i18n="status">In progress</span>
           <h3 data-i18n="p3_t">Robots, AI and the world we're building</h3>
           <p data-i18n="p3_d">My view on where this is all going, from someone who has deployed a robot AI model and audited it.</p>
-        </li>
+        </a></li>
       </ul>
     </section>
   </main>
@@ -613,6 +620,9 @@ footer {
       b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
     });
     try { localStorage.setItem('lang', lang); } catch (e) {}
+    document.querySelectorAll('a.post-link').forEach(function (a) {
+      a.href = 'post.html' + (lang === 'en' ? '' : '?lang=' + lang) + '#' + a.getAttribute('data-slug');
+    });
     try {
       var u = new URL(location.href);
       if (lang === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
