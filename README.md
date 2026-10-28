@@ -17,4 +17,4 @@ Personal website of Francisco Ramirez Serrano, served with GitHub Pages.
    Delete that line to publish the post.
 3. Optional translations: add `posts/<slug>.es.md`, `.fr.md`, `.it.md` or `.de.md`.
    Without one, visitors in that language see the English text with a short note.
-4. Link to a post with `post.html#<slug>`, e.g. https://franciscoramirezserrano.com/post.html#how-i-have-fun
+4. Link to a post with `post.html#<slug>`, e.g. https://franciscoramirezserrano.com/post.html#handstand-push-up
