@@ -731,10 +731,10 @@ footer {
     loops.forEach(function (v) { io.observe(v); });
     var io2 = new IntersectionObserver(function (es) {
       es.forEach(function (en) {
-        if (en.intersectionRatio >= 0.6) startPreview(en.target);
-        else if (!en.isIntersecting) { var f = en.target.querySelector('iframe'); if (f) f.remove(); }
+        // start once, the first time a tile is well on screen; then let it keep looping
+        if (en.intersectionRatio >= 0.6) { startPreview(en.target); io2.unobserve(en.target); }
       });
-    }, { threshold: [0, 0.6] });
+    }, { threshold: [0.6] });
     document.querySelectorAll('.ytbox').forEach(function (b) { io2.observe(b); });
   }
   window.addEventListener('hashchange', fromHash);
